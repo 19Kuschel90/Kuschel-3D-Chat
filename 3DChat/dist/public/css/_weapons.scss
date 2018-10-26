@@ -1,0 +1,38 @@
+.weapons-1 {
+    width: 60px;
+    height: 60px;
+    border-style: solid;
+    position: fixed;
+    bottom: 7%;
+    left: 30%;
+}
+
+.weapons-2 {
+    width: 60px;
+    height: 60px;
+    border-style: solid;
+    position: fixed;
+    bottom: 7%;
+    left: 40%;
+}
+
+.weapons-3 {
+    width: 60px;
+    height: 60px;
+    border-style: solid;
+    position: fixed;
+    bottom: 7%;
+    left: 50%;
+}
+
+.pic {
+    width: 60px;
+    height: 60px;
+}
+
+.weapons-1:hover,
+.weapons-2:hover,
+.weapons-3:hover {
+    border-color: coral;
+    background: pink;
+}

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Test My Mini Game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#00d3d6">
+    <!-- <link rel="icon" sizes="192x192" href="img/drawing192x192.png"> -->
+    <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-stautus-bar-style" content="default">
+    <!-- <link rel="apple-touch-startup-image" href="img/drawing96.png"> -->
+    <!-- <meta name="google-signin-client_id" content="167179324199-oulbv620d02theaefvd8p58su5teeeln.apps.googleusercontent.com"> -->
+    <!-- <meta name="google-signin-scope" content="emndef@gmail.com"> -->
+    <!-- <script src="https://apis.google.com/js/platform.js" async defer></script> -->
+</head>
+
+<body>
+    <div class="registration">
+        <div class="logo">
+            <!-- <img src="img/drawing.svg"> -->
+        </div>
+
+        <a href="/EDITOR">EDITOR</a>
+        <a href="/GAME">GAME</a>
+        <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+        <section id="addToHomeScreen">
+            <h1>Install App</h1>
+            <img src="#" alt="NCC CS" /> Add our app to your home screen?<br />
+            <a href="javascript:void(0)" onClick="hidePrompt()" style="text-decoration:none;">No, Thanks</a>
+            <button onClick="installApp()">Yes, Please!</button>
+        </section>
+        <div id="instructions">
+            <button onClick="hideInstructions()">X</button>
+            <p>
+                <img src="#" alt="icon" />
+            </p>
+            <p>
+                Install our app on your Home Screen for Quick Access
+            </p>
+            <p>
+                Tap <img src="#" alt="share" /> then <img src="#" alt="Add To Home Screen" />
+            </p>
+        </div>
+
+        <div id="react-container">
+        </div>
+
+        <script>
+            // function onSignIn(googleUser) {
+            //     // Useful data for your client-side scripts:  
+            //     var profile = googleUser.getBasicProfile();
+            //     console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+            //     console.log('Full Name: ' + profile.getName());
+            //     console.log('Given Name: ' + profile.getGivenName());
+            //     console.log('Family Name: ' + profile.getFamilyName());
+            //     console.log("Image URL: " + profile.getImageUrl());
+            //     console.log("Email: " + profile.getEmail());
+
+            //     // The ID token you need to pass to your backend:
+            //     var id_token = googleUser.getAuthResponse().id_token;
+            //     console.log("ID Token: " + id_token);
+            // };
+        </script>
+
+        <script src="js/main.js"></script>
+        <!-- <script src="js/sw.js"></script> -->
+        <!-- <script src="js/addToHomeScreen.js"></script> -->
+        <script src="js/SinglePage.js"></script>
+
+    </div>
+</body>
+
+</html>

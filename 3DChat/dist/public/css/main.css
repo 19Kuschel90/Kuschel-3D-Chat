@@ -1,0 +1,183 @@
+.playerSprites {
+  position: absolute;
+}
+
+.collider {
+  width: 57px;
+  height: 57px;
+  background-color: blueviolet;
+  opacity: 0.8;
+}
+
+.buttonTop,
+.buttonDown,
+.buttonRight,
+.buttonLeft {
+  width: 4%;
+  height: 4%;
+}
+
+.buttonTop {
+  position: fixed;
+  bottom: 10%;
+  left: 7%;
+}
+
+.buttonDown {
+  position: fixed;
+  bottom: 5%;
+  left: 7%;
+}
+
+.buttonRight {
+  position: fixed;
+  bottom: 7%;
+  left: 11%;
+}
+
+.buttonLeft {
+  position: fixed;
+  bottom: 7%;
+  left: 3%;
+}
+
+.weapons-1 {
+  width: 60px;
+  height: 60px;
+  border-style: solid;
+  position: fixed;
+  bottom: 7%;
+  left: 30%;
+}
+
+.weapons-2 {
+  width: 60px;
+  height: 60px;
+  border-style: solid;
+  position: fixed;
+  bottom: 7%;
+  left: 40%;
+}
+
+.weapons-3 {
+  width: 60px;
+  height: 60px;
+  border-style: solid;
+  position: fixed;
+  bottom: 7%;
+  left: 50%;
+}
+
+.pic {
+  width: 60px;
+  height: 60px;
+}
+
+.weapons-1:hover,
+.weapons-2:hover,
+.weapons-3:hover {
+  border-color: coral;
+  background: pink;
+}
+
+ul {
+  list-style-type: none;
+}
+
+ul li {
+  list-style-type: none;
+  display: inline-block;
+}
+
+canvas {
+  border: solid;
+}
+
+.Select {
+  border: 3px solid deepskyblue;
+}
+
+.notSelect {
+  border: 3px outset darkmagenta;
+}
+
+.registration {
+  width: 50%;
+  background: green;
+  margin: 0 auto;
+  margin-top: 5%;
+}
+
+.logo {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.logo img {
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+  background: white;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  background: green;
+}
+
+#background {
+  background: url("../img/mapV0.png");
+  width: 2000px;
+  height: 2000px;
+  background-repeat: space;
+}
+
+#addToHomeScreen {
+  display: block;
+  margin-top: 20px;
+  padding: 0px;
+}
+
+#addToHomeScreen img {
+  max-width: 57px;
+  margin: 10px;
+  float: left;
+}
+
+#addToHomeScreen button {
+  background-color: #264de4;
+  color: white;
+  border: 1px #2965f1 solid;
+  margin: 5px 10px;
+}
+
+#instructions {
+  text-align: center;
+  background-color: #f2f4f4;
+  position: fixed;
+  bottom: 0px;
+  right: 20px;
+  left: 20px;
+  width: calc(100%-40px);
+  padding: 0px 10px 10px 10px;
+}
+
+#instructions img {
+  max-width: 64px;
+}
+
+#instructions button {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  background-color: #264de4;
+  color: white;
+  border: 1px #2965f1 solid;
+}
+/*# sourceMappingURL=main.css.map */

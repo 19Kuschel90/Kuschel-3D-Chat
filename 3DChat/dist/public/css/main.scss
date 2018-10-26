@@ -1,0 +1,66 @@
+@import "playerSprites";
+@import "controller";
+@import "weapons";
+@import "editor";
+@import "registration";
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: green;
+}
+
+#background {
+    background: url('../img/mapV0.png');
+    width: 2000px;
+    height: 2000px;
+    background-repeat: space;
+}
+
+#addToHomeScreen {
+    display: block;
+    margin-top: 20px;
+    padding: 0px;
+    // display: none;
+}
+
+#addToHomeScreen img {
+    max-width: 57px;
+    margin: 10px;
+    float: left;
+}
+
+#addToHomeScreen button {
+    background-color: #264de4;
+    color: white;
+    border: 1px #2965f1 solid;
+    margin: 5px 10px;
+}
+
+#instructions {
+    text-align: center;
+    background-color: #f2f4f4;
+    position: fixed;
+    bottom: 0px;
+    right: 20px;
+    left: 20px;
+    width: calc(100%-40px);
+    padding: 0px 10px 10px 10px;
+    // display: none;
+}
+
+#instructions img {
+    max-width: 64px;
+}
+
+#instructions button {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    background-color: #264de4;
+    color: white;
+    border: 1px #2965f1 solid;
+}
