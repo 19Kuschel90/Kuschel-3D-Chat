@@ -1,23 +1,30 @@
 <html>
-  <head>
+
+<head>
     <title>react360</title>
-    <style>body { margin: 0; }</style>
+    <style>
+        body {
+            margin: 0;
+        }
+    </style>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-  </head>
-  <body>
+</head>
+
+<body>
     <!-- Attachment point for your app -->
     <div id="container"></div>
+    <div>Input: <input type="text"></div>
     <script src="./client.bundle?platform=vr"></script>
     <script>
-      // Initialize the React 360 application
-      React360.init(
-        'index.bundle?platform=vr&dev=true',
-        document.getElementById('container'),
-        {
-          assetRoot: 'static_assets/',
-        }
-      );
+        // Initialize the React 360 application
+        React360.init(
+            'index.bundle?platform=vr&dev=true',
+            document.getElementById('container'), {
+                assetRoot: 'static_assets/',
+            }
+        );
     </script>
-  </body>
-</html>
 
+</body>
+
+</html>

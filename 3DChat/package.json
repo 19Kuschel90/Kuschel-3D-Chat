@@ -6,6 +6,7 @@
     "dependencies": {
         "babel": "^6.23.0",
         "babel-loader": "^7.1.5",
+        "body-parser": "^1.18.3",
         "collisions": "^2.0.13",
         "express": "^4.16.3",
         "express-fileupload": "^1.0.0-alpha.1",
@@ -31,7 +32,7 @@
     },
     "scripts": {
         "prestart": "webpack",
-        "start": "node server.js"
+        "start": "node server.js \"console.log('open browser at http://localhost:3000\\n\\n');\" "
     },
     "author": "Heiko Kuschel",
     "license": "ISC"
