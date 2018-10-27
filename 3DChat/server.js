@@ -40,6 +40,11 @@ app.use(fileUpload());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+var siofu = require("socketio-file-upload");
+// var app = express()
+app.use(siofu.router)
+    // .listen(port);
+
 app.get('/', function(request, response) {
     // time.CL('requst is  ' + request);
     response.sendFile(path.resolve(__dirname, root, 'index.html'));
@@ -117,6 +122,7 @@ function createFile(input, index) {
 }
 
 
+var SocketIOFileUpload = require('socketio-file-upload');
 
 var io = require('socket.io')(server);
 io.listen(server);
@@ -128,6 +134,23 @@ var userList = {
 }
 
 Chat.on('connection', (socket) => {
+    ///////////////////////////////////////
+    // Make an instance of SocketIOFileUpload and listen on this socket:
+    var uploader = new SocketIOFileUpload();
+    uploader.dir = root + "/uploadimg";
+    uploader.listen(socket);
+
+    // Do something when a file is saved:
+    uploader.on("saved", function(event) {
+        console.log(event.file);
+    });
+
+    // Error handler:
+    uploader.on("error", function(event) {
+        console.log("Error from uploader", event);
+    });
+    ///////////////////////////////////////
+
     time.CL("user Login" + socket.id);
     socket.on('message', (data) => {
         console.log('message', data.message);

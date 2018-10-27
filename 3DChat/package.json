@@ -19,7 +19,8 @@
         "react-router": "^4.3.1",
         "react-router-dom": "^4.3.1",
         "react-style": "^0.5.5",
-        "socket.io": "^2.1.1"
+        "socket.io": "^2.1.1",
+        "socketio-file-upload": "^0.6.4"
     },
     "devDependencies": {
         "babel-core": "^6.26.3",
