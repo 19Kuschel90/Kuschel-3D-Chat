@@ -137,12 +137,45 @@ Chat.on('connection', (socket) => {
     ///////////////////////////////////////
     // Make an instance of SocketIOFileUpload and listen on this socket:
     var uploader = new SocketIOFileUpload();
-    uploader.dir = root + "/uploadimg";
+    uploader.dir = root + "/static_assets";
     uploader.listen(socket);
 
     // Do something when a file is saved:
     uploader.on("saved", function(event) {
-        console.log(event.file);
+        console.log('type n:', event.file);
+        // Pic
+        if (event.file.name.match(/.svg/) ||
+            event.file.name.match(/.png/) ||
+            event.file.name.match(/.bmp/)
+        ) {
+
+            Chat.emit('inputImage', { Image: event.file.name });
+            var datas = {
+                user: "",
+                text: "",
+                image: event.file.name,
+                Video: {
+                    name: "",
+                    play: false
+                }
+            }
+            sendUserMessage(datas);
+        }
+        // Video
+        if (event.file.name.match(/.mp4/)) {
+
+            Chat.emit('inputImage', { Image: event.file.name });
+            var datas = {
+                user: "",
+                text: "",
+                image: '',
+                Video: {
+                    name: event.file.name,
+                    play: false
+                }
+            }
+            sendUserMessage(datas);
+        }
     });
 
     // Error handler:
@@ -153,7 +186,16 @@ Chat.on('connection', (socket) => {
 
     time.CL("user Login" + socket.id);
     socket.on('message', (data) => {
-        console.log('message', data.message);
-        Chat.emit('inputMessage', { message: data.message });
+        sendUserMessage(data);
     });
 });
+
+function sendUserMessage(data) {
+    console.log(data);
+    Chat.emit('inputMessage', {
+        user: data.user || "",
+        text: data.message || "",
+        image: data.image || "",
+        Video: data.Video || ""
+    });
+}

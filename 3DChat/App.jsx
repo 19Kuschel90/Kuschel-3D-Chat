@@ -1,6 +1,6 @@
 var React = require('react');
 var ReactDOM = require("react-dom");
-var Swap = require("./components/Swap");
+var Swap = require("./Components/Swap");
 // var io = require('socket.io-client');
 // var socket = io('/Chat');
 // window.socket = socket;
