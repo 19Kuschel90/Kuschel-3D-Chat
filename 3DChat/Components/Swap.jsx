@@ -6,6 +6,7 @@ var Switch = require('react-router-dom').Switch;
 var Login = require('./parts/Login');
 var Editor = require('./parts/Editor');
 var Chat = require('./parts/Chat');
+var Offline = require('./parts/Offline');
 
 module.exports =  class App extends React.Component {
     constructor(props){
@@ -34,7 +35,8 @@ module.exports =  class App extends React.Component {
               
             }} />
                     <Route path="/EDITOR" component={Editor} />
-                    <Route  component={Login} />
+                    <Route path="/" component={Login} />
+                    {/* <Route  component={Offline} /> */}
                     
                 </Switch > 
             </BrowserRouter>

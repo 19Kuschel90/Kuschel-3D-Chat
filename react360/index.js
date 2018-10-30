@@ -22,7 +22,7 @@ export default class react360 extends React.Component {
         text: "Welcame",
         image: "drawing512x512.png",
         Video: {
-          name: "",
+          name: "",//MoMIdent.mp4
           play: false
       }
     }
@@ -102,16 +102,15 @@ postChat()
           
               </Text>);
           }
-          if(element.Video.name !== "")
+          if( element.Video.name !== "")
           {
             key++;
             console.log(element.Video.name);
             temp.push( 
               // this.playVideo(element.Video.name)
               <Video 
-              source={{uri: '/static_assets/Nasa_aqua.mp4'}}
-              style={styles.video}
-          />       
+              source={asset( element.Video.name)}//MoMIdent.mp4
+              style={styles.img}/>       
               );
             }
           output.push(<View >{temp}</View>)
@@ -127,7 +126,7 @@ postChat()
     return (
       <View style={styles.panel}>
         <View style={styles.greetingBox}>
-        <Text style={styles.greeting}>
+        <Text style={styles.myFontSize}>
     Welcome to React 360
   </Text>
           {this.postChat()}
@@ -158,8 +157,9 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
   img: {
-    maxWidth: 100,
-    minHeight : 50
+    backgroundColor: 'rgba(255, 0, 255, 0.4)',
+    maxWidth: 30,
+    minHeight : 30
   },
   video:{
   width: 10,

@@ -5,7 +5,7 @@ module.exports =  class Login extends React.Component {
     constructor(props){
         super(props);   
         this.state = {
-            message: '',
+            text: '',
             fileInput: ( <input type="file" id="this.siofu_input" />),
             userName: "test"
         }
@@ -41,13 +41,18 @@ module.exports =  class Login extends React.Component {
     send(){
         this.socket.emit('message', {
             user: this.state.userName,
-            message: this.state.message
+            text: this.state.text,
+            image: '',
+            Video: {
+                name: "",
+                play: false
+            }
         });
 
     }
     
     changeMessage(event) {
-        this.setState({message: event.target.value});
+        this.setState({text: event.target.value});
       }
 
 

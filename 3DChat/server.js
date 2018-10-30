@@ -191,10 +191,10 @@ Chat.on('connection', (socket) => {
 });
 
 function sendUserMessage(data) {
-    console.log(data);
+    console.log("Send:", data);
     Chat.emit('inputMessage', {
         user: data.user || "",
-        text: data.message || "",
+        text: data.text || "",
         image: data.image || "",
         Video: data.Video || ""
     });

@@ -2,22 +2,38 @@
 <html>
 
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Test My Mini Game</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="mobile-web-app-capable" content="yes">
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#00d3d6">
-    <link rel="icon" sizes="192x192" href="img/drawing192x192.png">
-    <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
+    <meta charset="utf-8">
+    <base href="/">
+    <title>My Mini Game</title>
 
+    <link href="css/main.css" rel="stylesheet" type="text/css">
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <meta name="apple-mobile-web-app-title" content="My Mini Game">
+
+    <link rel="apple-touch-startup-image" href="img/drawing-1.svg" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)">
+    <!-- iPhone 5+ -->
+    <link rel="apple-touch-startup-image" href="img/drawing-1.svg" media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 2)">
+    <!-- iPhone, retina -->
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-stautus-bar-style" content="default">
-    <!-- <link rel="apple-touch-startup-image" href="img/drawing96.png"> -->
-    <!-- <meta name="google-signin-client_id" content="167179324199-oulbv620d02theaefvd8p58su5teeeln.apps.googleusercontent.com"> -->
-    <!-- <meta name="google-signin-scope" content="emndef@gmail.com"> -->
-    <!-- <script src="https://apis.google.com/js/platform.js" async defer></script> -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="apple-touch-icon" href="img/drawing-1.svg">
+    <link rel="apple-touch-icon" sizes="152x152" href="img/drawing-1.svg">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/drawing-1.svg">
+    <link rel="apple-touch-icon" sizes="167x167" href="img/drawing-1.svg">
+
+    <meta name="application-name" content="My Mini Game" />
+    <meta name="msapplication-square70x70logo" content="img/drawing-1.svg" />
+    <meta name="msapplication-square150x150logo" content="img/drawing-1.svg" />
+    <meta name="msapplication-wide310x150logo" content="img/drawing-1.svg" />
+    <meta name="msapplication-square310x310logo" content="img/drawing-1.svg" />
+    <meta name="msapplication-TileColor" content="#ECC400" />
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="manifest" href="manifest.json">
 </head>
 
 <body>
@@ -41,6 +57,27 @@
 
         <script src="js/SinglePage.js"></script>
     </div>
+    <div class="displayNone" id="addToHome">
+        <h1>Add My Mini Game To Your Homescreen!</h1>
+        <div class="btn btn-premium">Add</div>
+    </div>
+    <script src="js/Application.js"></script>
+    <script>
+        console.log('asd');
+        if ('serviceWorker' in navigator) {  
+
+            navigator.serviceWorker.register('/sw.js')
+                .then(function(registration) {    // Registration was successful
+                       
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);  
+
+                }).catch(function(err) {    // registration failed :(
+                       
+                    console.log('ServiceWorker registration failed: ', err);  
+                });
+
+        }
+    </script>
 </body>
 
 </html>

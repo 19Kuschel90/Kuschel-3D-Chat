@@ -9,7 +9,7 @@ module.exports =  class Login extends React.Component {
         birthday: '',
         password: ''
        }
-       console.log('gi');
+    //    console.log('gi');
 
         this.changeUserName = this.changeUserName.bind(this);
     }
