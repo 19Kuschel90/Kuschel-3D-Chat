@@ -23,14 +23,14 @@
 
     function showAddToHomeScreen() {
         console.log(deferredPrompt);
-        // if (deferredPrompt) {
+        if (deferredPrompt) {
 
-        var a2hsBtn = document.getElementById("addToHome");
+            var a2hsBtn = document.getElementById("addToHome");
 
-        a2hsBtn.style.display = "flex";
+            a2hsBtn.style.display = "flex";
 
-        a2hsBtn.addEventListener("click", addToHomeScreen);
-        // }
+            a2hsBtn.addEventListener("click", addToHomeScreen);
+        }
 
     }
 

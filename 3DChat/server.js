@@ -29,10 +29,10 @@ var bodyParser = require("body-parser")
 const path = require('path');
 var app = express();
 const root = './dist/public'; // export folder
-const port = 3000;
+const port = 4000;
+var server = app.listen(process.env.PORT || port);
 app.use(express.static(root));
 app.set('port', process.env.PORT || port); // z.B: PORT=9000 npm start
-var server = app.listen(process.env.PORT || port);
 time.CL('is running ' + app.get('port'));
 
 app.use(express.static(root));
@@ -129,9 +129,7 @@ io.listen(server);
 
 const Chat = io.of('/Chat');
 
-var userList = {
 
-}
 
 Chat.on('connection', (socket) => {
     ///////////////////////////////////////

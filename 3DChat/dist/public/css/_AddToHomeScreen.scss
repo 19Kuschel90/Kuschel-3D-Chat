@@ -1,0 +1,25 @@
+.AddToHomeScreenButton {
+    width: 70%;
+    padding: 15px;
+    margin: 0 auto;
+    font-size: 31px;
+    border: solid 3px #4c71ea;
+    color: #040c0e;
+    text-align: center;
+}
+
+.AddToHomeScreenMTop {
+    margin-top: 30px;
+}
+
+@media only screen and (min-width: 400px) {
+    .AddToHomeScreenButton {
+        font-size: 20px;
+    }
+}
+
+@media only screen and (min-width: 700px) {
+    .AddToHomeScreenButton {
+        width: 50%;
+    }
+}

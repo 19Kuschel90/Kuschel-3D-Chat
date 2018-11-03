@@ -89,35 +89,119 @@ ul li {
   display: inline-block;
 }
 
-canvas {
-  border: solid;
-}
-
-.Select {
-  border: 3px solid deepskyblue;
-}
-
-.notSelect {
+.editor {
   border: 3px outset darkmagenta;
+  width: 100%;
+  height: 200px;
+}
+
+.editorAusWahl {
+  width: 100%;
+  height: 200px;
+}
+
+.editorAusWahlPic {
+  width: 80%;
+}
+
+.editorButtonLeft {
+  float: left;
+  height: 100%;
+  width: 10%;
+}
+
+.editorButtonRight {
+  float: right;
+  height: 100%;
+  width: 10%;
 }
 
 .registration {
-  width: 50%;
-  background: green;
+  width: 70%;
   margin: 0 auto;
   margin-top: 5%;
 }
 
 .logo {
-  width: 50%;
+  width: 90%;
   margin: 0 auto;
+  text-align: center;
 }
 
 .logo img {
-  width: 60px;
-  height: 60px;
+  width: 100%;
+  height: 100%;
   border-radius: 100%;
   background: white;
+}
+
+.LoginText {
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 36px;
+  font-family: 'Mali', cursive;
+}
+
+.LoginImput {
+  width: 100%;
+  height: 100px;
+  text-align: center;
+  font-size: 39px;
+  font-family: 'Mali', cursive;
+}
+
+.LoginInputButton {
+  width: 100%;
+  height: 170px;
+  margin-top: 45px;
+  /* margin: 0 auto; */
+  text-align: center;
+  font-family: 'Mali', cursive;
+  font-size: 42px;
+  border-radius: 50%;
+  border: inset 29px;
+  border-color: aqua;
+  background-color: #0fffaf;
+}
+
+@media only screen and (min-width: 700px) {
+  .logo img {
+    width: 30%;
+    height: 30%;
+  }
+}
+
+@media only screen and (min-width: 700px) {
+  .registration {
+    width: 70%;
+  }
+}
+
+.AddToHomeScreenButton {
+  width: 70%;
+  padding: 15px;
+  margin: 0 auto;
+  font-size: 31px;
+  border: solid 3px #4c71ea;
+  color: #040c0e;
+  text-align: center;
+}
+
+.AddToHomeScreenMTop {
+  margin-top: 30px;
+}
+
+@media only screen and (min-width: 400px) {
+  .AddToHomeScreenButton {
+    font-size: 20px;
+  }
+}
+
+@media only screen and (min-width: 700px) {
+  .AddToHomeScreenButton {
+    width: 50%;
+  }
 }
 
 * {
@@ -128,7 +212,8 @@ canvas {
 }
 
 body {
-  background: green;
+  background: #51ceff;
+  font-family: 'Mali', cursive;
 }
 
 #background {
@@ -183,5 +268,20 @@ body {
 
 .displayNone {
   display: none;
+}
+
+footer {
+  text-align: center;
+  width: 70%;
+  margin: 0 auto;
+  margin-top: 50px;
+  font-size: 40px;
+  background-color: aqua;
+}
+
+@media only screen and (min-width: 700px) {
+  footer {
+    width: 50%;
+  }
 }
 /*# sourceMappingURL=main.css.map */

@@ -14,5 +14,5 @@ module.exports = {
     resolve: {
         extensions: ['*', '.js', '.jsx']
     },
-    externals: ["p5"]
+    externals: ["GUserName"]
 }

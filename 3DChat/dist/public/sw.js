@@ -3,8 +3,7 @@ const version = "1.03",
     cacheList = [
         "/",
         "css/main.css",
-        "img/drawing.svg",
-        "js/SinglePage.js"
+        "img/drawing.svg"
     ];
 
 /*  Service Worker Event Handlers */

@@ -5,9 +5,7 @@ module.exports =  class Login extends React.Component {
     constructor(props){
         super(props);   
        this.state = {
-        UserName: '',
-        birthday: '',
-        password: ''
+        UserName: ''
        }
     //    console.log('gi');
 
@@ -16,6 +14,9 @@ module.exports =  class Login extends React.Component {
     
     changeUserName(event) {
         this.setState({UserName: event.target.value});
+        console.log(window.userName);
+        
+        location.hash = this.state.UserName;
       }
 
 
@@ -24,21 +25,16 @@ module.exports =  class Login extends React.Component {
     
         return(
             <div>
-                <form  method='post' action="/EDITOR">
+                <form  method='post' action={"/EDITOR" +location.hash }>
                     <div>
-                        User Name:
+                        <p className="LoginText">Nick Name</p>
                         <div>
-                        <input type="text" value={this.state.UserName} onChange={this.changeUserName} placeholder="User Name" name="UserName" required/>
+                        <input type="text" value={this.state.UserName} className="LoginImput" onChange={this.changeUserName} placeholder="User Name" name="UserName" required/>
                         </div>
                     </div>
                   
-                    <div>
-                    Password:
-                        <div>
-                        <input type="password" value={this.state.UserName} onChange={this.changeUserName} placeholder="User Name" name="password" required/>
-                        </div>
-                    </div>        
-                    <input type="submit" value="Send" />
+                 
+                    <input type="submit" value="Log In" className="LoginInputButton"  />
 
                 </form>
                  </div>

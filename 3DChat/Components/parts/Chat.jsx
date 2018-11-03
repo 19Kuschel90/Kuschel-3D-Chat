@@ -11,11 +11,11 @@ module.exports =  class Login extends React.Component {
         }
         
         this.changeMessage = this.changeMessage.bind(this);
-        this.componentWillMount = this.componentWillMount.bind(this);
+        // this.componentWillMount = this.componentWillMount.bind(this);
         this.send = this.send.bind(this);
     }
     
-    componentWillMount(){
+    componentDidMount(){
         var io = require('socket.io-client');
         this.socket = io('/Chat');
         this.socket.emit('connection', {});
@@ -66,7 +66,10 @@ module.exports =  class Login extends React.Component {
                 </div>
                 <button onClick={this.send}>Send</button>
                {this.state.fileInput}
-                
+               <p><button id="upload_btn">Prompt for File</button></p>
+        <p><label>Choose File: <input type="file" id="upload_input"/></label></p>
+        <div id="file_drop" dropzone="copy" title="drop files for upload">Drop File</div>
+        
 
             </div>
         );

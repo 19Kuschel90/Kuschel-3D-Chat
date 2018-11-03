@@ -3,6 +3,7 @@
 @import "weapons";
 @import "editor";
 @import "registration";
+@import "AddToHomeScreen";
 * {
     margin: 0;
     padding: 0;
@@ -10,7 +11,8 @@
 }
 
 body {
-    background: green;
+    background: rgb(81, 206, 255);
+    font-family: 'Mali', cursive;
 }
 
 #background {
@@ -67,4 +69,19 @@ body {
 
 .displayNone {
     display: none;
+}
+
+footer {
+    text-align: center;
+    width: 70%;
+    margin: 0 auto;
+    margin-top: 50px;
+    font-size: 40px;
+    background-color: aqua;
+}
+
+@media only screen and (min-width: 700px) {
+    footer {
+        width: 50%;
+    }
 }

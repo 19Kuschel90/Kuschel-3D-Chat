@@ -4,6 +4,12 @@
 import { ReactInstance } from 'react-360-web';
 import { Location, Surface } from 'react-360-web';
 
+// if (!window.MySocket) {
+//     var io = require('socket.io-client');
+//     window.MySocket = io('/Chat');
+//     console.log('dddd', window.MySocket);
+// }
+
 function init(bundle, parent, options = {}) {
     const r360 = new ReactInstance(bundle, parent, {
         // Add custom options here
@@ -15,7 +21,7 @@ function init(bundle, parent, options = {}) {
 
     // Render your app content to the default cylinder surface
     r360.renderToSurface(
-        r360.createRoot('react360', { /* initial props */ }),
+        r360.createRoot('react360', {}),
         r360.getDefaultSurface()
     );
     r360.renderToLocation(

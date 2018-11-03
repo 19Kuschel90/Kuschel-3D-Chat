@@ -12,7 +12,6 @@ import BoxModel from './Commponents/BoxModel';
 import PodestModel from './Commponents/PodestModel';
 // import Viedio from './Vidio';
 
-
 export default class react360 extends React.Component {
   constructor(props){
     super(props);
@@ -24,25 +23,22 @@ export default class react360 extends React.Component {
         Video: {
           name: "",//MoMIdent.mp4
           play: false
+        }
       }
-    }
-     ]
-    }
-    var io = require('socket.io-client');
-
-    this.socket = io('http://localhost:3000/Chat');
-    this.socket.emit('connection', {});
-    this.postChat = this.postChat.bind(this);
+    ]
+  }
+  var io = require('socket.io-client');
+  this.socket= io('/Chat');
+  
+  this.socket.emit('connection', {});
+  this.postChat = this.postChat.bind(this);
     this.playVideo = this.playVideo.bind(this);
 this.socket.on('inputMessage', (data) => {
   console.log(data);
   this.setState({Chat: [...this.state.Chat, data]});
 });
 
-this.socket.on("inputImage", (data) =>{
-  // this.setState({Image: [...this.state.Image, data]});
-  
-});
+
 }
 
 

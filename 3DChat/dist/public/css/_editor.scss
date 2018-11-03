@@ -7,14 +7,38 @@ ul li {
     display: inline-block;
 }
 
-canvas {
-    border: solid;
-}
-
-.Select {
-    border: 3px solid deepskyblue;
-}
-
-.notSelect {
+// canvas {
+//     border: solid;
+// }
+// .Select {
+//     border: 3px solid deepskyblue;
+// }
+// .notSelect {
+//     border: 3px outset darkmagenta;
+// }
+.editor {
     border: 3px outset darkmagenta;
+    width: 100%;
+    height: 200px;
+}
+
+.editorAusWahl {
+    width: 100%;
+    height: 200px;
+}
+
+.editorAusWahlPic {
+    width: 80%;
+}
+
+.editorButtonLeft {
+    float: left;
+    height: 100%;
+    width: 10%;
+}
+
+.editorButtonRight {
+    float: right;
+    height: 100%;
+    width: 10%;
 }
