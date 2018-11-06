@@ -6,8 +6,7 @@ import {
   View,
   Image,
   asset,
-  Video,
-  VrButton
+  Video
 } from 'react-360';
 import BoxModel from './Commponents/BoxModel';
 import PodestModel from './Commponents/PodestModel';
@@ -17,7 +16,6 @@ export default class react360 extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      postionY: 0,
       Chat: [{
         user: "Hello Bot",
         text: "Welcame",
@@ -46,32 +44,20 @@ export default class react360 extends React.Component {
     ]
   }
   var io = require('socket.io-client');
-  // http://127.0.0.1:4000/Chat'
-  console.log("this.props.host", 'http://' + this.props.host + '/Chat');
-  this.socket= io( 'http://' + this.props.host + '/Chat');
+  this.socket= io('http://127.0.0.1:4000/Chat');
   
   this.socket.emit('connection', {});
   this.postChat = this.postChat.bind(this);
     this.playVideo = this.playVideo.bind(this);
 this.socket.on('inputMessage', (data) => {
   console.log(data);
-  var temp = this.state.postionY + 40;
-  this.setState({postionY: temp});
   this.setState({Chat: [...this.state.Chat, data]});
 });
 
 
 }
 
-upButton(){
-  var temp = this.state.postionY + 1;
- this.setState({postionY: temp});
-}
 
-downButton(){
-  var temp = this.state.postionY - 1;
- this.setState({postionY: temp});
-}
 
 playVideo(state){
   if (this.state.video === false) {
@@ -92,80 +78,97 @@ playVideo(state){
 postChat()
 {
   let output = [];
-  let postionFix = 0;
-  let text = '';
+  let key = 0;
   this.state.Chat.forEach(element => {
-    postionFix -= 30;
     console.log(element);
     let temp = [];
-    
+    let text = '';
+    key++;
+    if(element.user !== "")
+    {
+      text += element.user + ": ";
    
-      text += element.user + ": " ;
-   
-  
+    {element.user + ": "}
+
+      }
+      if(element.text !== "")
+      {
       text += element.text;
-      
-    
-    text += '\n'; 
-    text += '\n'; 
+      key++;
 
+            temp.push(
+            
+            <Text key={key}  style={{
+              backgroundColor: '#777879',
+              fontSize: 30,
+              fontWeight: '400',
+              paddingLeft: 0.2,
+              paddingRight: 0.2,
+              textAlign: 'center',
+              textAlignVertical: 'center',
+              transform: [
+                  { translate: [0, 0, 0] },
+                  { scale: 1 },
+                  { rotateY: 0 } 
+              ]
+          }}>
+              {text}
+          
+              </Text>);
+        }
+
+        if(element.image !== "")
+        {
+          key++;
+          // debugger;/
+          temp.push(
+        
+           <Image key={key} style={styles.img}
+            source={asset( element.image)}/>
+          
+         
+
+          );
+          }
+          if( element.Video.name !== "")
+          {
+            key++;
+            console.log(element.Video.name);
+            temp.push( 
+              // this.playVideo(element.Video.name)
+              <Video 
+              source={asset( element.Video.name)}//MoMIdent.mp4
+              style={styles.img}/>       
+              );
+            }
+          output.push(<View style={styles.test}>{temp}</View>);
         });
-  return <Text key={566}  style={{
-    backgroundColor: 'rgba(0, 0, 255, 0.4)',
-    fontSize: 30,
-    fontWeight: '400',
-    borderWidth: 2,
-    padding: 2,
-    transform: [
-        { translate: [0, this.state.postionY, 0] },
-        { scale: 1 },
-        { rotateY: 0 } 
-    ]
-}}>
-    {text}
-
-    </Text> ;
-}
-
-render() {
   return (
   <View>
-    <View>
-
-    <VrButton onClick={this.upButton.bind(this)}>
-      <Text  style={{
-        backgroundColor: 'rgba(0, 0, 255, 0.4)',
-        fontSize: 30,
-    fontWeight: '400',
-    borderWidth: 2,
-    padding: 2,
-    transform: [
-      { translate: [400, 0, 0] },
-        { scale: 1 },
-        { rotateY: 0 } 
-    ]
-}}>Up</Text>
-    </VrButton>
-    <VrButton onClick={this.downButton.bind(this)}>
-      <Text  style={{
-    backgroundColor: 'rgba(0, 0, 255, 0.4)',
-    fontSize: 30,
-    fontWeight: '400',
-    borderWidth: 2,
-    padding: 2,
-    transform: [
-        { translate: [400, 0, 0] },
-        { scale: 1 },
-        { rotateY: 0 } 
-    ]
-}}>down</Text>
-    </VrButton>
-      </View>
-    {this.postChat()}
+    {output}
   </View>
+  );
+}
 
-
-    );  
+  render() {
+    return (
+      <View style={styles.panel}>
+             
+        <View style={styles.greetingBox}>
+          {/* <Text style={styles.myFontSize}>
+          {"asdsdd"}
+          
+              </Text>
+              <Text  style={styles.myFontSize}>
+          {"asdsdd"}
+          
+              </Text> */}
+          {this.postChat()}
+       
+         
+        </View>
+      </View>
+    );
   }
 };
 
