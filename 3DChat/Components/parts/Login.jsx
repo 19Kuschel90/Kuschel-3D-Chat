@@ -7,7 +7,6 @@ module.exports =  class Login extends React.Component {
        this.state = {
         UserName: ''
        }
-    //    console.log('gi');
 
         this.changeUserName = this.changeUserName.bind(this);
     }
@@ -15,8 +14,9 @@ module.exports =  class Login extends React.Component {
     changeUserName(event) {
         this.setState({UserName: event.target.value});
         console.log(window.userName);
+        window.localStorage.setItem('UserName', this.state.UserName);
         
-        location.hash = this.state.UserName;
+        // location.hash = this.state.UserName;
       }
 
 
@@ -25,7 +25,6 @@ module.exports =  class Login extends React.Component {
     
         return(
             <div>
-                <form  method='post' action={"/EDITOR" +location.hash }>
                     <div>
                         <p className="LoginText">Nick Name</p>
                         <div>
@@ -33,11 +32,9 @@ module.exports =  class Login extends React.Component {
                         </div>
                     </div>
                   
-                 
-                    <input type="submit" value="Log In" className="LoginInputButton"  />
+                    <a href="/EDITOR">Log In</a>
 
-                </form>
-                 </div>
+                     </div>
         );
     }
 }

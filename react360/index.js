@@ -19,16 +19,32 @@ export default class react360 extends React.Component {
       Chat: [{
         user: "Hello Bot",
         text: "Welcame",
-        image: "drawing512x512.png",
+        image: "drawing.svg",
         Video: {
           name: "",//MoMIdent.mp4
+          play: false
+        }
+      },{
+        user: "Hello Bot",
+        text: "Welcame",
+        image: "drawing.svg",
+        Video: {
+          name: "",//MoMIdent.mp4
+          play: false
+        }
+      },{
+        user: "Hello Bot",
+        text: "Welcame",
+        image: "drawing.svg",
+        Video: {
+          name: "MoMIdent.mp4",//MoMIdent.mp4
           play: false
         }
       }
     ]
   }
   var io = require('socket.io-client');
-  this.socket= io('/Chat');
+  this.socket= io('http://127.0.0.1:4000/Chat');
   
   this.socket.emit('connection', {});
   this.postChat = this.postChat.bind(this);
@@ -78,25 +94,41 @@ postChat()
       if(element.text !== "")
       {
       text += element.text;
+      key++;
+
+            temp.push(
+            
+            <Text key={key}  style={{
+              backgroundColor: '#777879',
+              fontSize: 30,
+              fontWeight: '400',
+              paddingLeft: 0.2,
+              paddingRight: 0.2,
+              textAlign: 'center',
+              textAlignVertical: 'center',
+              transform: [
+                  { translate: [0, 0, 0] },
+                  { scale: 1 },
+                  { rotateY: 0 } 
+              ]
+          }}>
+              {text}
+          
+              </Text>);
         }
 
         if(element.image !== "")
         {
           key++;
           // debugger;/
-          temp.push(<View>
+          temp.push(
         
            <Image key={key} style={styles.img}
-            source={asset( element.image)}>
-          </Image>
-            </View>
+            source={asset( element.image)}/>
+          
+         
 
           );
-          }else{
-            temp.push(<Text key={key} style={styles.myFontSize}>
-              {text}
-          
-              </Text>);
           }
           if( element.Video.name !== "")
           {
@@ -109,8 +141,8 @@ postChat()
               style={styles.img}/>       
               );
             }
-          output.push(<View >{temp}</View>)
-  });
+          output.push(<View style={styles.test}>{temp}</View>);
+        });
   return (
   <View>
     {output}
@@ -121,11 +153,19 @@ postChat()
   render() {
     return (
       <View style={styles.panel}>
+             
         <View style={styles.greetingBox}>
-        <Text style={styles.myFontSize}>
-    Welcome to React 360
-  </Text>
+          {/* <Text style={styles.myFontSize}>
+          {"asdsdd"}
+          
+              </Text>
+              <Text  style={styles.myFontSize}>
+          {"asdsdd"}
+          
+              </Text> */}
           {this.postChat()}
+       
+         
         </View>
       </View>
     );
@@ -138,24 +178,37 @@ const styles = StyleSheet.create({
     width: 1000,
     height: 600,
     backgroundColor: 'rgba(255, 255, 255, 0.4)',
-    justifyContent: 'center',
-    alignItems: 'center',
+    // justifyContent: 'center',
+    // alignItems: 'center',
   },
   greetingBox: {
     padding: 0,
-    width: 800,
+    
     // height: 200,
-    backgroundColor: '#000000',
+    // backgroundColor: '#000000',
+    backgroundColor: 'rgba(255, 0, 0, 0.4)',
     borderColor: '#639dda',
     borderWidth: 2,
   },
+  
+  test:{
+    margin:20    
+    
+  },
+
   myFontSize: {
     fontSize: 30,
+    backgroundColor: 'rgba(0, 0, 255, 0.4)',
+    // width: 800,
+    // height: 60,
+
+
   },
   img: {
+ 
     backgroundColor: 'rgba(255, 0, 255, 0.4)',
-    maxWidth: 30,
-    minHeight : 30
+    width: 30,
+    height : 30
   },
   video:{
   width: 10,

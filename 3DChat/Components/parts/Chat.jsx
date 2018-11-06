@@ -7,15 +7,19 @@ module.exports =  class Login extends React.Component {
         this.state = {
             text: '',
             fileInput: ( <input type="file" id="this.siofu_input" />),
-            userName: "test"
+            userName: "No Name"
         }
-        
+        console.log(localStorage.getItem('Avatar'));
+        console.log(localStorage.getItem('UserName'));
         this.changeMessage = this.changeMessage.bind(this);
         // this.componentWillMount = this.componentWillMount.bind(this);
         this.send = this.send.bind(this);
+        
     }
     
     componentDidMount(){
+
+        var othis = this;
         var io = require('socket.io-client');
         this.socket = io('/Chat');
         this.socket.emit('connection', {});
@@ -24,11 +28,15 @@ module.exports =  class Login extends React.Component {
         document.getElementById("upload_btn").addEventListener("click", this.siofu.prompt, false);
         this.siofu.listenOnInput(document.getElementById("upload_input"));
         this.siofu.listenOnDrop(document.getElementById("file_drop"));
+        // this.siofu.li(document.getElementById("file_drop"));
      
         // Do something on upload progress:
         this.siofu.addEventListener("progress", function(event){
+            
             var percent = event.bytesLoaded / event.file.size * 100;
             console.log("File is", percent.toFixed(2), "percent loaded");
+            // this.state.text = event.file.name;
+            // othis.send();
         });
      
         // Do something when a file is uploaded:
@@ -36,12 +44,15 @@ module.exports =  class Login extends React.Component {
             console.log(event.success);
             console.log(event.file);
         });
+    
     }
+    
+
     
     send(){
         this.socket.emit('message', {
-            user: this.state.userName,
-            text: this.state.text,
+            user: localStorage.getItem("UserName") || this.state.userName,
+            text:  this.state.text,
             image: '',
             Video: {
                 name: "",
@@ -52,7 +63,9 @@ module.exports =  class Login extends React.Component {
     }
     
     changeMessage(event) {
-        this.setState({text: event.target.value});
+        this.setState({
+            text: event.target.value
+        });
       }
 
 

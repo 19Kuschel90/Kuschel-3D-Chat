@@ -121,7 +121,7 @@ function createFile(input, index) {
     });
 }
 
-
+// Chat
 var SocketIOFileUpload = require('socketio-file-upload');
 
 var io = require('socket.io')(server);
@@ -129,50 +129,80 @@ io.listen(server);
 
 const Chat = io.of('/Chat');
 
+var socketList = [];
+///////////////////////////////////////
+// Make an instance of SocketIOFileUpload and listen on this socket:
+var G_uploader = new SocketIOFileUpload();
+G_uploader.dir = root + "/static_assets";
+var fixMoreSend = {
+    name: '',
+    mtime: null
 
+};
 
 Chat.on('connection', (socket) => {
-    ///////////////////////////////////////
-    // Make an instance of SocketIOFileUpload and listen on this socket:
-    var uploader = new SocketIOFileUpload();
-    uploader.dir = root + "/static_assets";
-    uploader.listen(socket);
+    console.log('socket.id:', socket.id);
+    socketList.push(socket);
+    console.log('socketList:', socketList.length);
 
+    let uploader = G_uploader;
+    uploader.listen(socket);
+    socket.on('disconnect', function() {
+        console.log('disconnect', socket.id);
+        uploader._onDisconnect;
+    });
     // Do something when a file is saved:
     uploader.on("saved", function(event) {
-        console.log('type n:', event.file);
-        // Pic
-        if (event.file.name.match(/.svg/) ||
-            event.file.name.match(/.png/) ||
-            event.file.name.match(/.bmp/)
-        ) {
+        // console.log('type n:', event.file);
+        // console.log("saved");
+        //fix
+        if (event.file.name != fixMoreSend.name || event.file.mtime != fixMoreSend.mtime) {
+            fixMoreSend = {
+                name: event.file.name,
+                mtime: event.file.mtime
 
-            Chat.emit('inputImage', { Image: event.file.name });
-            var datas = {
-                user: "",
-                text: "",
-                image: event.file.name,
-                Video: {
-                    name: "",
-                    play: false
+            }
+            console.log('type n:', socket.id);
+            console.log('type n:', event.file.name);
+
+            // Pic
+            if (event.file.name.match(/.svg/) ||
+                event.file.name.match(/.png/) ||
+                event.file.name.match(/.bmp/)
+            ) {
+
+                // Chat.emit('inputImage', { Image: event.file.name });
+                var datas = {
+                    user: "",
+                    text: "",
+                    image: event.file.name,
+                    Video: {
+                        name: "",
+                        play: false
+                    }
+                }
+                sendUserMessage(datas);
+            }
+            // Video
+            if (event.file.name.match(/.mp4/)) {
+
+                // Chat.emit('inputImage', { Image: event.file.name });
+                var datas = {
+                    user: "",
+                    text: "",
+                    image: '',
+                    Video: {
+                        name: event.file.name,
+                        play: false
+                    }
+                }
+                if (datas != fixMoreSend) {
+
+                    fixMoreSend = datas;
+
+                    // sendUserMessage(datas);
                 }
             }
-            sendUserMessage(datas);
-        }
-        // Video
-        if (event.file.name.match(/.mp4/)) {
-
-            Chat.emit('inputImage', { Image: event.file.name });
-            var datas = {
-                user: "",
-                text: "",
-                image: '',
-                Video: {
-                    name: event.file.name,
-                    play: false
-                }
-            }
-            sendUserMessage(datas);
         }
     });
 
@@ -188,6 +218,7 @@ Chat.on('connection', (socket) => {
     });
 });
 
+
 function sendUserMessage(data) {
     console.log("Send:", data);
     Chat.emit('inputMessage', {
@@ -197,3 +228,56 @@ function sendUserMessage(data) {
         Video: data.Video || ""
     });
 }
+
+
+// uploadEditor
+var G_uploader2 = new SocketIOFileUpload();
+G_uploader2.dir = root + "/static_assets";
+const uploadEditor = io.of('/uploadEditor');
+
+uploadEditor.on('connection', (socket) => {
+
+    let uploader = G_uploader2;
+    uploader.listen(socket);
+    uploader.on("saved", function(event) {
+        console.log(' uploadEditor type n:', event.file.name);
+        // Pic
+        // if (event.file.name.match(/.svg/) ||
+        // event.file.name.match(/.png/) ||
+        // event.file.name.match(/.bmp/)
+        //             ) {
+
+        //                 Chat.emit('inputImage', { Image: event.file.name });
+        //                 var datas = {
+        //                     user: "",
+        //                     text: "",
+        //                     image: event.file.name,
+        //                     Video: {
+        //                         name: "",
+        //                         play: false
+        //                     }
+        //                 }
+        //                 sendUserMessage(datas);
+        //             }
+        //             // Video
+        //             if (event.file.name.match(/.mp4/)) {
+
+        //                 Chat.emit('inputImage', { Image: event.file.name });
+        //                 var datas = {
+        //                     user: "",
+        //                     text: "",
+        //                     image: '',
+        //                     Video: {
+        //                         name: event.file.name,
+        //                         play: false
+        //                     }
+        //                 }
+        //                 sendUserMessage(datas);
+        //             }
+    });
+
+    // Error handler:
+    uploader.on("error", function(event) {
+        console.log("Error from uploader", event);
+    });
+});
