@@ -12,8 +12,8 @@ export default class MainMy extends React.Component {
         super(props);
         // console.log("greetingBox", this.props.styleData.greetingBox);
   this.state = {
-      myModelObj: '/Podest/podest.obj',
-      myModelMtl: '/Podest/podest.mtl'
+    myModelObj: '/skylight/skylight.obj',
+    myModelMtl: '/skylight/skylight.mtl'
   }
     }
 
@@ -31,9 +31,10 @@ export default class MainMy extends React.Component {
               style={{
                 transform:[
                   {translate: [0,0,0]},
-                  {scale: 100.0},
+                  {scale: 90.0},
                   {rotateX: 0},
-                  {rotateY: 0}
+                  {rotateY: 240},
+                  {rotateZ: 0}
                 ]
               }}
             />

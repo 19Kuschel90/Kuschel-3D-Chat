@@ -12,7 +12,7 @@ export default class MainMy extends React.Component {
         super(props);
         // console.log("greetingBox", this.props.styleData.greetingBox);
   this.state = {
-      background: 'space.jpg',
+    
       myModelObj: '/box/untitled.obj',
       myModelMtl: '/box/untitled.mtl'
   }
@@ -32,7 +32,7 @@ export default class MainMy extends React.Component {
               style={{
                 transform:[
                   {translate: [0,0,0]},
-                  {scale: 100.0},
+                  {scale: 30.0},
                   {rotateX: 0},
                   {rotateY: 0}
                 ]

@@ -1,7 +1,6 @@
 @import "playerSprites";
 @import "controller";
 @import "weapons";
-@import "editor";
 @import "registration";
 @import "AddToHomeScreen";
 * {
@@ -13,6 +12,11 @@
 body {
     background: rgb(81, 206, 255);
     font-family: 'Mali', cursive;
+}
+
+body::selection {
+    color: black;
+    background: rgba(0, 0, 0, 0);
 }
 
 #background {
@@ -78,6 +82,38 @@ footer {
     margin-top: 50px;
     font-size: 40px;
     background-color: aqua;
+}
+
+// .sendButtonDiv {
+//     margin: 0 auto;
+//     width: 60%;
+// }
+.sendButton {
+    height: 68px;
+    float: right;
+}
+
+.sendChatPostion {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    padding: 10px;
+    margin: 10px;
+    opacity: 0.9;
+}
+
+textarea {
+    padding: 3px;
+}
+
+.sendBackButton {
+    position: fixed;
+    background: rgb(81, 206, 255);
+    top: 0;
+    left: 0;
+    padding: 10px;
+    opacity: 0.9;
+    border-radius: 0px 0px 30px;
 }
 
 @media only screen and (min-width: 700px) {

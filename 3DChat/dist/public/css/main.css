@@ -80,42 +80,6 @@
   background: pink;
 }
 
-ul {
-  list-style-type: none;
-}
-
-ul li {
-  list-style-type: none;
-  display: inline-block;
-}
-
-.editor {
-  border: 3px outset darkmagenta;
-  width: 100%;
-  height: 200px;
-}
-
-.editorAusWahl {
-  width: 100%;
-  height: 200px;
-}
-
-.editorAusWahlPic {
-  width: 80%;
-}
-
-.editorButtonLeft {
-  float: left;
-  height: 100%;
-  width: 10%;
-}
-
-.editorButtonRight {
-  float: right;
-  height: 100%;
-  width: 10%;
-}
-
 .registration {
   width: 70%;
   margin: 0 auto;
@@ -151,10 +115,15 @@ ul li {
   font-family: 'Mali', cursive;
 }
 
+.LoginInputButtonText {
+  text-decoration: none;
+}
+
 .LoginInputButton {
   width: 100%;
   height: 170px;
   margin-top: 45px;
+  text-decoration: none;
   /* margin: 0 auto; */
   text-align: center;
   font-family: 'Mali', cursive;
@@ -209,11 +178,22 @@ ul li {
   padding: 0;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  -webkit-backface-visibility: hidden;
 }
 
 body {
   background: #51ceff;
   font-family: 'Mali', cursive;
+}
+
+body::-moz-selection {
+  color: black;
+  background: rgba(0, 0, 0, 0);
+}
+
+body::selection {
+  color: black;
+  background: rgba(0, 0, 0, 0);
 }
 
 #background {
@@ -277,6 +257,35 @@ footer {
   margin-top: 50px;
   font-size: 40px;
   background-color: aqua;
+}
+
+.sendButton {
+  height: 68px;
+  float: right;
+}
+
+.sendChatPostion {
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  padding: 10px;
+  margin: 10px;
+  opacity: 0.9;
+  -khtml-opacity: 0.9;
+}
+
+textarea {
+  padding: 3px;
+}
+
+.sendBackButton {
+  position: fixed;
+  background: #51ceff;
+  top: 0;
+  left: 0;
+  padding: 10px;
+  opacity: 0.9;
+  border-radius: 0px 0px 30px;
 }
 
 @media only screen and (min-width: 700px) {

@@ -10,11 +10,11 @@ import {
 export default class MainMy extends React.Component {
     constructor(props){
         super(props);
-        // console.log("greetingBox", this.props.styleData.greetingBox);
   this.state = {
-      myModelObj: '/Podest/podest.obj',
-      myModelMtl: '/Podest/podest.mtl'
+      myModelObj: '/skylight/skylight.obj',
+      myModelMtl: '/skylight/skylight.mtl'
   }
+  console.log("adswe");
     }
 
   
@@ -31,7 +31,7 @@ export default class MainMy extends React.Component {
               style={{
                 transform:[
                   {translate: [0,0,0]},
-                  {scale: 100.0},
+                  {scale: 90.0},
                   {rotateX: 0},
                   {rotateY: 0}
                 ]

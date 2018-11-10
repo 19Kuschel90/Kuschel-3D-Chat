@@ -225,7 +225,10 @@ function sendUserMessage(data) {
         user: data.user || "",
         text: data.text || "",
         image: data.image || "",
-        Video: data.Video || ""
+        Video: {
+            name: "MoMIdent.mp4", //MoMIdent.mp4
+            play: false
+        }
     });
 }
 

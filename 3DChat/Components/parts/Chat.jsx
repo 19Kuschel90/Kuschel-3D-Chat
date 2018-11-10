@@ -12,7 +12,6 @@ module.exports =  class Login extends React.Component {
         console.log(localStorage.getItem('Avatar'));
         console.log(localStorage.getItem('UserName'));
         this.changeMessage = this.changeMessage.bind(this);
-        // this.componentWillMount = this.componentWillMount.bind(this);
         this.send = this.send.bind(this);
         
     }
@@ -23,28 +22,7 @@ module.exports =  class Login extends React.Component {
         var io = require('socket.io-client');
         this.socket = io('/Chat');
         this.socket.emit('connection', {});
-        ////////////////
-        this.siofu = new SocketIOFileUpload(this.socket);
-        document.getElementById("upload_btn").addEventListener("click", this.siofu.prompt, false);
-        this.siofu.listenOnInput(document.getElementById("upload_input"));
-        this.siofu.listenOnDrop(document.getElementById("file_drop"));
-        // this.siofu.li(document.getElementById("file_drop"));
-     
-        // Do something on upload progress:
-        this.siofu.addEventListener("progress", function(event){
-            
-            var percent = event.bytesLoaded / event.file.size * 100;
-            console.log("File is", percent.toFixed(2), "percent loaded");
-            // this.state.text = event.file.name;
-            // othis.send();
-        });
-     
-        // Do something when a file is uploaded:
-        this.siofu.addEventListener("complete", function(event){
-            console.log(event.success);
-            console.log(event.file);
-        });
-    
+  
     }
     
 
@@ -74,16 +52,15 @@ module.exports =  class Login extends React.Component {
     
         return(
             <div>
-                <div>
-                Message:<input typ="text" onChange={this.changeMessage} ></input>
-                </div>
-                <button onClick={this.send}>Send</button>
-               {this.state.fileInput}
-               <p><button id="upload_btn">Prompt for File</button></p>
-        <p><label>Choose File: <input type="file" id="upload_input"/></label></p>
-        <div id="file_drop" dropzone="copy" title="drop files for upload">Drop File</div>
-        
+               <a href="/">
+                    <div className="sendBackButton">Back</div>
+                   </a>
+                <div className="sendChatPostion">
 
+                 <textarea rows="4" cols="40" onChange={this.changeMessage}></textarea>
+           
+                <button onClick={this.send} className="sendButton">Send</button>
+                </div>
             </div>
         );
     }
