@@ -6,7 +6,8 @@ import {
   View,
   Image,
   asset,
-  Video
+  Video,
+  VrButton
 } from 'react-360';
 
 // import Viedio from './Vidio';
@@ -15,30 +16,35 @@ export default class react360 extends React.Component {
   constructor(props){
     super(props);
     this.state = {
+      ChatOnVideoPlay: false,
+      ChatPostionY: 0,
       Chat: [{
+        type: "text",
+        avatar: "drawing.svg",
         user: "Hello Bot",
         text: "Welcame",
         image: "",
-        Video: {
-          name: "",//MoMIdent.mp4
+        VideoName:  "",//MoMIdent.mp4
           play: false
-        }
+        
       },{
+        type: "text",
+        avatar: "drawing.svg",
         user: "Hello Bot",
         text: "Welcame",
         image: "",
-        Video: {
-          name: "",//MoMIdent.mp4
+        VideoName:  "",//MoMIdent.mp4
           play: false
-        }
+        
       },{
+        type: "text",
+        avatar: "drawing.svg",
         user: "Hello Bot",
         text: "Welcame",
         image: "drawing.svg",
-        Video: {
-          name: "",//MoMIdent.mp4
+        VideoName:  "",//MoMIdent.mp4
           play: false
-        }
+        
       }
     ]
   }
@@ -46,8 +52,14 @@ export default class react360 extends React.Component {
   this.socket= io('http://127.0.0.1:4000/Chat');
   
   this.socket.emit('connection', {});
+  this.socket.on('connectionOK', (data)=>{console.log(data)});// fix handchack
+
   this.postChat = this.postChat.bind(this);
     this.playVideo = this.playVideo.bind(this);
+    this.showVideo = this.showVideo.bind(this);
+    this.playVideo = this.playVideo.bind(this);
+    this.setVideoState = this.setVideoState.bind(this);
+    
 this.socket.on('inputMessage', (data) => {
   console.log(data);
   this.setState({Chat: [...this.state.Chat, data]});
@@ -55,31 +67,24 @@ this.socket.on('inputMessage', (data) => {
 
 
 }
-
-
-
-playVideo(state){
-  if (this.state.video === false) {
-    return( <VrButton  onClick={this.state[0].Video.name}>
-
-     <Text
-        style={styles.myFontSize}
-        >Video click: {this.state[0].Video.name}</Text>
-        </VrButton>);
-} else {
-    return ( <Video 
-            source={{uri: '/static_assets/' + this.state[0].Video.name}}
-            style={video}
-        />)
+upButton(e){
+  console.log(e);
+  var temp = this.state.ChatPostionY + 10;
+  this.setState({ChatPostionY: temp});
 }
+downButton(){
+  var temp = this.state.ChatPostionY - 10;
+  this.setState({ChatPostionY: temp});
 }
+
 
 postChat()
 {
   let output = [];
   let key = 0;
+  let index = 0;
   this.state.Chat.forEach(element => {
-    console.log(element);
+    // console.log(element);
     let temp = [];
     let text = '';
     key++;
@@ -90,21 +95,22 @@ postChat()
     {element.user + ": "}
 
       }
-      if(element.text !== "")
+      if( element.type == "text" && element.text !== "")
       {
       text += element.text;
       key++;
 
             temp.push(
+     // avartar
               <Image key={key} style={{
                 width: 30,
-              heightMin : 30,
+              // heightMin : 30,
               transform: [
                 { translate: [0, 30, 0] },
                   { scale: 1 },
                   { rotateY: 0 } 
               ]}}
-              source={asset("drawing.svg")}>
+              source={asset(element.avatar)}>
             <Text key={key}  style={{
                 width: 300,
                 // height : 30,
@@ -125,25 +131,25 @@ postChat()
               </Image>);
         }
 
-        if(element.image !== "")
+        if( element.type == "image" && element.image !== "")
         {
           key++;
           // debugger;
           temp.push(
-     
+     // avartar
   <Image key={key}  style={{  
             width: 30,
-          heightMin: 30,
+          // heightMin: 30,
           transform: [
             { translate: [0, 30, 0] },
               { scale: 1 },
               { rotateY: 0 } 
           ]}}
-            source={asset( element.image)}>
+            source={asset( element.avatar )}>
           
           <Image key={key}  style={{
              width: 30,
-          heightMin: 30,
+          // heightMin: 30,
           transform: [
             { translate: [160, 0, 0] },
               { scale: 1 },
@@ -152,7 +158,7 @@ postChat()
             source={asset( element.image)}>
              <Text key={key}  style={{
                 width: 300,
-          heightMin : 30,
+          // heightMin : 30,
 
               backgroundColor: 'rgba(0, 0, 255, 0.4)',
               fontSize: 30,
@@ -177,76 +183,131 @@ postChat()
 
           );
           }
-          if( element.Video.name !== "")
+          if( element.type == "Video" && element.VideoName !== "")
           {
             key++;
-            console.log(element.Video.name);
+            const number = index;
+            console.log(element.VideoName);
             temp.push( 
               // this.playVideo(element.Video.name)
-              <View  style={{  
-                width: 30,
-              heightMin: 30,
-              transform: [
-                { translate: [0, 0, 0] },
+             
+             
+     // avartar              
+              <Image key={key}  style={{
+                width: 30, 
+                // heightMin: 60,
+                transform: [
+                  { translate: [0, 30, 0] },
                   { scale: 1 },
                   { rotateY: 0 } 
-              ]}}>
-
-              <Video 
-              source={asset( element.Video.name)}//MoMIdent.mp4
-              style={{    width: 30,
-                height : 30,
-                transform: [
-                  { translate: [160, 0, 0] },
-                    { scale: 1 },
-                    { rotateY: 0 } 
-                ]}}>
- <Image key={key}  style={{
-             width: 30,
-          heightMin: 30,
-          transform: [
-            { translate: [0, 0, 0] },
-              { scale: 1 },
-              { rotateY: 0 } 
-          ]}}
-            source={asset( element.image)}>
+                ]}}
+                source={asset( element.avatar)}>
+                
+              <VrButton  onClick={() => this.setVideoState( number)}
+                style={{    width: 30,
+                  height : 30,
+                  transform: [
+                    { translate: [30, 0, 0] },
+                      { scale: 1 },
+                      { rotateY: 0 } 
+                  ]}}>
                   <Text key={key}  style={{
-                width: 300,
-          heightMin : 30,
-
-              backgroundColor: 'rgba(0, 0, 255, 0.4)',
+                width: 400,
+                // heightMin : 30,
+                
+                backgroundColor: 'rgba(0, 0, 255, 0.4)',
               fontSize: 30,
               fontWeight: '400',
               borderWidth: 2,
               padding: 4,
               transform: [
-                { translate: [-130, 0, 0] },
+                { translate: [0, 0, 0] },
                   { scale: 1 },
                   { rotateY: 0 } 
               ]
           }}>
            
-           {element.user + ": "} 
+           {(element.user + ": " + this.showVideo(element) )   } 
         </Text>
+        {this.playVideo(element)}
+
+        </VrButton>
         </Image>
-                </Video>       
-                </View>
+         
               );
             }
+            
+            index++;
           output.push(<View style={{
             display: "inlineBlock",
             backgroundColor: 'rgba(200, 100, 0, 0.5)'}}>{temp}</View>);
-        });
+          });
   return (
   <View style={{
     display: "inlineBlock",
     backgroundColor: 'rgba(20, 0, 200, 0.5)',
     width: 500,
         height: 500,
+        transform: [
+          { translate: [0, this.state.ChatPostionY, 0] },
+            { scale: 1 },
+            { rotateY: 0 } 
+        ]
     }}>
     {output}
   </View>
   );
+}
+
+setVideoState(index){
+  index = index ;
+  var temp = this.state.Chat;
+  
+  console.log(temp);
+  if( temp[index].play){
+    temp[index].play =  false;
+  }else{
+    temp[index].play =  true;
+  }
+temp = temp.map((x,number)=> {
+  console.log(index);
+  if(number != index){
+    x.play = x.play = false;
+  return  x;
+  }else{
+    return x;
+  }
+});
+console.log(temp);
+  this.setState({Chat: temp});
+
+  console.log(this.state.Chat );
+}
+
+playVideo(element){
+  if(element.play){
+  return(
+
+    <Video 
+              source={asset( element.VideoName)}//MoMIdent.mp4
+              style={{    width: 30,
+                height : 30,
+                transform: [
+                  { translate: [160, 30, 0] },
+                    { scale: 1 },
+                    { rotateY: 0 } 
+                ]}}/> );
+  }else{
+   return;
+  }
+}
+
+showVideo( element){
+  if(element.play){
+    return '';
+  }else{
+    return element.VideoName;
+  }
 }
 
   render() {
@@ -255,11 +316,46 @@ postChat()
         display: "inlineBlock",
         backgroundColor: 'rgba(200, 0, 200, 0.5)'}
         }>
-             
+      
    
        
           {this.postChat()}
-       
+          <VrButton  onButtonRelease={this.upButton.bind(this)}>
+      <Text  style={{
+        width: 100,
+        height: 100,
+        textAlign: "center",
+        // padding: "10px",
+    backgroundColor: 'rgba(0, 0, 255, 0.4)',
+    fontSize: 30,
+    fontWeight: '400',
+    borderWidth: 2,
+    padding: 2,
+    transform: [
+        { translate: [520, 400, 0] },
+        { scale: 1 },
+        { rotateY: 0 } 
+    ]
+}}>up</Text>
+    </VrButton>
+          <VrButton  onButtonRelease={this.downButton.bind(this)}>
+      <Text  style={{
+        width: 100,
+        height: 100,
+        textAlign: "center",
+        // padding: "10px",
+    backgroundColor: 'rgba(0, 0, 255, 0.4)',
+    fontSize: 30,
+    fontWeight: '400',
+    borderWidth: 2,
+    padding: 2,
+    transform: [
+        { translate: [520, 300, 0] },
+        { scale: 1 },
+        { rotateY: 0 } 
+    ]
+}}>down</Text>
+    </VrButton>
          
       </View>
     );

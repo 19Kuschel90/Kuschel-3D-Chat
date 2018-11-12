@@ -4,6 +4,7 @@ var Route = require('react-router-dom').Route;
 var Switch = require('react-router-dom').Switch;
 
 var Login = require('./parts/Login');
+var Editor = require('./parts/Editor');
 var Chat = require('./parts/Chat');
 
 module.exports =  class App extends React.Component {
@@ -32,6 +33,7 @@ module.exports =  class App extends React.Component {
               return (<Chat ></Chat>);
               
             }} />
+            <Route path="/EDITOR" component={Editor} />
                     <Route path="/"  render={() => {
               return (<Login UserName={this.state.userName}></Login>);
             }} />

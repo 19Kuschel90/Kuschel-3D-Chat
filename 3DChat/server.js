@@ -139,76 +139,76 @@ var fixMoreSend = {
     mtime: null
 
 };
+var fixMoreSend2 = {
+    name: '',
+    mtime: null
 
+};
 Chat.on('connection', (socket) => {
+    // socket.use((packet, next) => {
+    //     console.log(packet);
+    //     console.log(next);
+    //     console.log(packet.doge);
+    //     if (packet.doge === true) {
+    //         console.log("doge is true");
+    //         return next();
+    //     } else {
+    //         console.log("doge is false");
+    //         next(new Error('Not a doge error'));
+    //     }
+    // });
     console.log('socket.id:', socket.id);
     socketList.push(socket);
     console.log('socketList:', socketList.length);
 
     let uploader = G_uploader;
     uploader.listen(socket);
-    socket.on('disconnect', function() {
-        console.log('disconnect', socket.id);
-        uploader._onDisconnect;
-    });
-    // Do something when a file is saved:
-    uploader.on("saved", function(event) {
-        // console.log('type n:', event.file);
-        // console.log("saved");
-        //fix
+
+
+    uploader.on("start", function(event) {
         if (event.file.name != fixMoreSend.name || event.file.mtime != fixMoreSend.mtime) {
             fixMoreSend = {
                 name: event.file.name,
                 mtime: event.file.mtime
-
             }
-            console.log('type n:', socket.id);
-            console.log('type n:', event.file.name);
-
-            // Pic
-            if (event.file.name.match(/.svg/) ||
-                event.file.name.match(/.png/) ||
-                event.file.name.match(/.bmp/)
+            console.log(event.file);
+            if (/\.exe$/.test(event.file.name)) {
+                // uploader.abort(event.file.id, socket);
+            }
+            if (/\.svg$/.test(event.file.name) ||
+                /\.png$/.test(event.file.name) ||
+                /\.bmp$/.test(event.file.name) ||
+                /\.mp4$/.test(event.file.name) ||
+                /\.jpg$/.test(event.file.name)
             ) {
-
-                // Chat.emit('inputImage', { Image: event.file.name });
-                var datas = {
-                    user: "",
-                    text: "",
-                    image: event.file.name,
-                    Video: {
-                        name: "",
-                        play: false
-                    }
-                }
-                sendUserMessage(datas);
+                console.log("will Save: ", event.file.name);
+                return;
+            } else {
+                // uploader.abort(socket.id, socket);
             }
-            // Video
-            if (event.file.name.match(/.mp4/)) {
-
-                // Chat.emit('inputImage', { Image: event.file.name });
-                var datas = {
-                    user: "",
-                    text: "",
-                    image: '',
-                    Video: {
-                        name: event.file.name,
-                        play: false
-                    }
-                }
-                if (datas != fixMoreSend) {
-
-                    fixMoreSend = datas;
-
-                    // sendUserMessage(datas);
-                }
+        } else {
+            // uploader.abort(socket.id, socket);
+        }
+    });
+    socket.on('disconnect', function() {
+        console.log('disconnect', socket.id);
+        // uploader._onDisconnect;
+    });
+    // Do something when a file is saved:
+    uploader.on("saved", function(event) {
+        if (event.file.name != fixMoreSend2.name || event.file.mtime != fixMoreSend2.mtime) {
+            fixMoreSend2 = {
+                name: event.file.name,
+                mtime: event.file.mtime
             }
+            console.log('type n:', event.file.name);
+            console.log("saved");
         }
     });
 
     // Error handler:
     uploader.on("error", function(event) {
-        console.log("Error from uploader", event);
+        console.log("Error from uploader 1234", event);
     });
     ///////////////////////////////////////
 
@@ -222,13 +222,13 @@ Chat.on('connection', (socket) => {
 function sendUserMessage(data) {
     console.log("Send:", data);
     Chat.emit('inputMessage', {
+        type: data.type || "text",
+        avatar: data.avatar || "",
         user: data.user || "",
         text: data.text || "",
         image: data.image || "",
-        Video: {
-            name: "MoMIdent.mp4", //MoMIdent.mp4
-            play: false
-        }
+        VideoName: data.VideoName || "", //MoMIdent.mp4
+        play: false
     });
 }
 
@@ -243,40 +243,40 @@ uploadEditor.on('connection', (socket) => {
     let uploader = G_uploader2;
     uploader.listen(socket);
     uploader.on("saved", function(event) {
-        console.log(' uploadEditor type n:', event.file.name);
+        console.log(' uploadEditor type n:', event.file);
         // Pic
         // if (event.file.name.match(/.svg/) ||
-        // event.file.name.match(/.png/) ||
-        // event.file.name.match(/.bmp/)
-        //             ) {
+        //     event.file.name.match(/.png/) ||
+        //     event.file.name.match(/.bmp/)
+        // ) {
 
-        //                 Chat.emit('inputImage', { Image: event.file.name });
-        //                 var datas = {
-        //                     user: "",
-        //                     text: "",
-        //                     image: event.file.name,
-        //                     Video: {
-        //                         name: "",
-        //                         play: false
-        //                     }
-        //                 }
-        //                 sendUserMessage(datas);
-        //             }
-        //             // Video
-        //             if (event.file.name.match(/.mp4/)) {
+        //     Chat.emit('inputImage', { Image: event.file.name });
+        //     var datas = {
+        //         type: data.type || "text",
+        //         avatar: data.avatar || "",
+        //         user: data.user || "",
+        //         text: data.text || "",
+        //         image: data.image || "drawing.svg",
+        //         VideoName: "MoMIdent.mp4", //MoMIdent.mp4
+        //         play: false
+        //     }
+        //     sendUserMessage(datas);
+        // }
+        // // Video
+        // if (event.file.name.match(/.mp4/)) {
 
-        //                 Chat.emit('inputImage', { Image: event.file.name });
-        //                 var datas = {
-        //                     user: "",
-        //                     text: "",
-        //                     image: '',
-        //                     Video: {
-        //                         name: event.file.name,
-        //                         play: false
-        //                     }
-        //                 }
-        //                 sendUserMessage(datas);
-        //             }
+        //     Chat.emit('inputImage', { Image: event.file.name });
+        //     var datas = {
+        //         type: data.type || "text",
+        //         avatar: data.avatar || "",
+        //         user: data.user || "",
+        //         text: data.text || "",
+        //         image: data.image || "drawing.svg",
+        //         VideoName: "MoMIdent.mp4", //MoMIdent.mp4
+        //         play: false
+        //     }
+        //     sendUserMessage(datas);
+        // }
     });
 
     // Error handler:
