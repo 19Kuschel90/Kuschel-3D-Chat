@@ -17,39 +17,44 @@ export default class react360 extends React.Component {
     super(props);
     this.state = {
       ChatOnVideoPlay: false,
+      buttonHover:{
+        Background: "",
+        BorderColor: ""
+      }, 
       ChatPostionY: 0,
       Chat: [{
-        type: "text",
+        type: "text",//type is: text || image || Video 
         avatar: "drawing.svg",
         user: "Hello Bot",
-        text: "Welcame",
+        text: "Welcame ",
         image: "",
         VideoName:  "",//MoMIdent.mp4
           play: false
         
       },{
-        type: "text",
+        type: "Video",
         avatar: "drawing.svg",
         user: "Hello Bot",
         text: "Welcame",
         image: "",
-        VideoName:  "",//MoMIdent.mp4
+        VideoName:  "MoMIdent.mp4",//MoMIdent.mp4
           play: false
         
       },{
-        type: "text",
+        type: "image",
         avatar: "drawing.svg",
         user: "Hello Bot",
         text: "Welcame",
-        image: "drawing.svg",
-        VideoName:  "",//MoMIdent.mp4
+        image: "drawing-1.svg",
+        VideoName:  "MoMIdent.mp4",//MoMIdent.mp4
           play: false
         
-      }
+      },
     ]
   }
   var io = require('socket.io-client');
   this.socket= io('http://127.0.0.1:4000/Chat');
+  // this.socket= io( 'http://' + this.props.host + '/Chat');
   
   this.socket.emit('connection', {});
   this.socket.on('connectionOK', (data)=>{console.log(data)});// fix handchack
@@ -95,6 +100,8 @@ postChat()
     {element.user + ": "}
 
       }
+
+      // Is a Text Output
       if( element.type == "text" && element.text !== "")
       {
       text += element.text;
@@ -102,87 +109,102 @@ postChat()
 
             temp.push(
      // avartar
+     <View>
+
               <Image key={key} style={{
-                width: 30,
-              // heightMin : 30,
-              transform: [
-                { translate: [0, 30, 0] },
+                width: 50,
+                height: 50,
+                padding: 2,
+                margin: 5,
+                borderRadius: 50,
+                transform: [
+                { translate: [0, 0, 0] },
                   { scale: 1 },
                   { rotateY: 0 } 
               ]}}
               source={asset(element.avatar)}>
+              </Image>
             <Text key={key}  style={{
                 width: 300,
                 // height : 30,
-              backgroundColor: 'rgba(0, 0, 255, 0.4)',
-              fontSize: 30,
+              // backgroundColor: 'rgba(0, 0, 255, 0.4)',
+              fontSize: 35,
               fontWeight: '400',
-              borderWidth: 2,
-              padding: 4,
+              
+              // borderWidth: 2,
+              // padding: 4,
               transform: [
-                { translate: [30, 0, 0] },
+                { translate: [60, 50, 0] },
                   { scale: 1 },
                   { rotateY: 0 } 
               ]
           }}>
-           
            {text} 
               </Text>
-              </Image>);
+              </View>
+              );
         }
 
+        // Is a Image
         if( element.type == "image" && element.image !== "")
         {
           key++;
           // debugger;
           temp.push(
-     // avartar
+            // avartar
+              <View>
   <Image key={key}  style={{  
-            width: 30,
-          // heightMin: 30,
+            width: 50,
+          height: 50,
+          borderRadius: 50,
+
           transform: [
-            { translate: [0, 30, 0] },
+            { translate: [0, 0, 0] },
               { scale: 1 },
               { rotateY: 0 } 
           ]}}
             source={asset( element.avatar )}>
-          
-          <Image key={key}  style={{
-             width: 30,
-          // heightMin: 30,
-          transform: [
-            { translate: [160, 0, 0] },
-              { scale: 1 },
-              { rotateY: 0 } 
-          ]}}
-            source={asset( element.image)}>
-             <Text key={key}  style={{
+            </Image>
+            <Text key={key}  style={{
                 width: 300,
           // heightMin : 30,
 
-              backgroundColor: 'rgba(0, 0, 255, 0.4)',
+              // backgroundColor: 'rgba(0, 0, 255, 0.4)',
               fontSize: 30,
               fontWeight: '400',
               borderWidth: 2,
-              padding: 4,
+              // padding: 4,
               transform: [
-                { translate: [-130, 0, 0] },
+                { translate: [60, 50, 0] },
                   { scale: 1 },
                   { rotateY: 0 } 
               ]
           }}>
-           
-           {element.user + ": "} 
+             {element.user + ": "} 
         
-              </Text>
+        </Text>
+          <Image key={key}  style={{
+             width: 250,
+          height: 250,
+          transform: [
+            { translate: [200, 50, 0] },
+              { scale: 1 },
+              { rotateY: 0 } 
+          ]}}
+            source={asset( element.image)}>
+            </Image>
+
+    
+         
              
-            </Image>
-            </Image>
+            </View>
        
          
 
           );
           }
+
+          // Is a Video
           if( element.type == "Video" && element.VideoName !== "")
           {
             key++;
@@ -191,61 +213,73 @@ postChat()
             temp.push( 
               // this.playVideo(element.Video.name)
              
-             
      // avartar              
+              <View style={{
+
+              }}>
+                <VrButton  onClick={() => this.setVideoState( number)}
+                  style={{    
+                    // width: 30,
+                    // height : 30,
+                    transform: [
+                      { translate: [0, 0, 0] },
+                        { scale: 1 },
+                        { rotateY: 0 } 
+                    ]}}>
               <Image key={key}  style={{
-                width: 30, 
-                // heightMin: 60,
+                width: 50,
+                height: 50,
+                padding: 2,
+                margin: 5,
+                borderRadius: 50,
                 transform: [
-                  { translate: [0, 30, 0] },
+                { translate: [0, 0, 0] },
                   { scale: 1 },
                   { rotateY: 0 } 
-                ]}}
+              ]}}
                 source={asset( element.avatar)}>
+        </Image>
                 
-              <VrButton  onClick={() => this.setVideoState( number)}
-                style={{    width: 30,
-                  height : 30,
-                  transform: [
-                    { translate: [30, 0, 0] },
-                      { scale: 1 },
-                      { rotateY: 0 } 
-                  ]}}>
                   <Text key={key}  style={{
-                width: 400,
-                // heightMin : 30,
-                
-                backgroundColor: 'rgba(0, 0, 255, 0.4)',
-              fontSize: 30,
+                width: 300,
+                // height : 30,
+              // backgroundColor: 'rgba(0, 0, 255, 0.4)',
+              fontSize: 35,
               fontWeight: '400',
-              borderWidth: 2,
-              padding: 4,
+              
+              // borderWidth: 2,
+              // padding: 4,
               transform: [
-                { translate: [0, 0, 0] },
+                { translate: [60, 50, 0] },
                   { scale: 1 },
                   { rotateY: 0 } 
               ]
           }}>
            
-           {(element.user + ": " + this.showVideo(element) )   } 
+           {(element.user + ": \n (click to Play) " + this.showVideo(element) )   } 
         </Text>
         {this.playVideo(element)}
 
         </VrButton>
-        </Image>
-         
+        </View>
               );
             }
             
             index++;
+            // is one Post
           output.push(<View style={{
             display: "inlineBlock",
-            backgroundColor: 'rgba(200, 100, 0, 0.5)'}}>{temp}</View>);
+            backgroundColor: 'rgba(153, 220, 220, 0.5)',
+            borderColor: '#66ffff',
+            borderWidth: 4,
+            marginBottom: 10,
+          }}>{temp}</View>);
           });
   return (
   <View style={{
     display: "inlineBlock",
-    backgroundColor: 'rgba(20, 0, 200, 0.5)',
+    // backgroundColor: 'rgba(20, 0, 200, 0.5)',
+    // padding: 40,
     width: 500,
         height: 500,
         transform: [
@@ -290,10 +324,10 @@ playVideo(element){
 
     <Video 
               source={asset( element.VideoName)}//MoMIdent.mp4
-              style={{    width: 30,
-                height : 30,
+              style={{    width: 250,
+                height : 250,
                 transform: [
-                  { translate: [160, 30, 0] },
+                  { translate: [55, 50, 0] },
                     { scale: 1 },
                     { rotateY: 0 } 
                 ]}}/> );
@@ -314,47 +348,75 @@ showVideo( element){
     return (
       <View style={{
         display: "inlineBlock",
-        backgroundColor: 'rgba(200, 0, 200, 0.5)'}
+        padding: 30
+      }
+        
         }>
       
    
        
           {this.postChat()}
-          <VrButton  onButtonRelease={this.upButton.bind(this)}>
-      <Text  style={{
+            <VrButton style={{
         width: 100,
         height: 100,
-        textAlign: "center",
+        
+        borderColor: '#66ffff',
+        borderWidth: 4,
         // padding: "10px",
-    backgroundColor: 'rgba(0, 0, 255, 0.4)',
-    fontSize: 30,
-    fontWeight: '400',
-    borderWidth: 2,
-    padding: 2,
-    transform: [
-        { translate: [520, 400, 0] },
-        { scale: 1 },
-        { rotateY: 0 } 
-    ]
-}}>up</Text>
+        // backgroundColor: 'rgba(0, 255, 0, 0.7)',
+        
+        // borderWidth: 2,
+        // padding: 20,
+        // borderColor: '#66ffff',
+        
+        transform: [
+          { translate: [520, 350, 0] },
+          { scale: 1 },
+          { rotateY: 0 } 
+        ]
+      }}  onButtonRelease={this.upButton.bind(this)}>
+      <Text 
+       style={{
+        fontWeight: '400',
+        textAlign: "center",
+        width: 95,
+        height: 95,
+         backgroundColor: 'rgba(153, 220, 220, 0.5)',
+         fontSize: 30,
+
+        }}
+      >Up</Text>
     </VrButton>
-          <VrButton  onButtonRelease={this.downButton.bind(this)}>
-      <Text  style={{
+          <VrButton style={{
         width: 100,
         height: 100,
-        textAlign: "center",
+        
+        borderColor: '#66ffff',
+        borderWidth: 4,
         // padding: "10px",
-    backgroundColor: 'rgba(0, 0, 255, 0.4)',
-    fontSize: 30,
-    fontWeight: '400',
-    borderWidth: 2,
-    padding: 2,
-    transform: [
-        { translate: [520, 300, 0] },
-        { scale: 1 },
-        { rotateY: 0 } 
-    ]
-}}>down</Text>
+        // backgroundColor: 'rgba(0, 255, 0, 0.7)',
+        
+        // borderWidth: 2,
+        // padding: 20,
+        // borderColor: '#66ffff',
+        
+        transform: [
+          { translate: [520, 300, 0] },
+          { scale: 1 },
+          { rotateY: 0 } 
+        ]
+      }}  onButtonRelease={this.downButton.bind(this)}>
+      <Text 
+       style={{
+        fontWeight: '400',
+        textAlign: "center",
+        width: 95,
+        height: 95,
+         backgroundColor: 'rgba(153, 220, 220, 0.5)',
+         fontSize: 30,
+
+        }}
+      >down</Text>
     </VrButton>
          
       </View>
@@ -363,51 +425,55 @@ showVideo( element){
 };
 
 // const styles = StyleSheet.create({
-//   panel: {
-//     display: "inlineBlock",
+//   button: {
+//     // display: "inlineBlock",
 //   // Fill the entire surface
-//     width: 1000,
-//     height: 600,
-//     backgroundColor: 'rgba(255, 255, 255, 0.4)',
+ 
+//     backgroundColor: 'rgba(0, 200, 255, 1)',
 //     // justifyContent: 'center',
-//     // alignItems: 'center',
-//   },
-//   greetingBox: {
-//     padding: 0,
-//     display: "inlineBlock",
-    
-//     // height: 200,
-//     // backgroundColor: '#000000',
-//     backgroundColor: 'rgba(255, 0, 0, 0.4)',
 //     borderColor: '#639dda',
 //     borderWidth: 2,
+//     // alignItems: 'center',
 //   },
-  
-//   test:{
-//         display: "inlineBlock",
-//         margin:20    
+//   panel:{
     
-//   },
+  // }
+  // greetingBox: {
+  //   padding: 0,
+  //   display: "inlineBlock",
+    
+  //   // height: 200,
+  //   // backgroundColor: '#000000',
+  //   backgroundColor: 'rgba(255, 0, 0, 0.4)',
+  //   borderColor: '#639dda',
+  //   borderWidth: 2,
+  // },
+  
+  // test:{
+  //       display: "inlineBlock",
+  //       margin:20    
+    
+  // },
 
-//   myFontSize: {
-//         display: "inlineBlock",
-//         fontSize: 30,
-//     backgroundColor: 'rgba(0, 0, 255, 0.4)',
-//     // width: 800,
-//     // height: 60,
+  // myFontSize: {
+  //       display: "inlineBlock",
+  //       fontSize: 30,
+  //   backgroundColor: 'rgba(0, 0, 255, 0.4)',
+  //   // width: 800,
+  //   // height: 60,
 
 
-//   },
-//   img: {
+  // },
+  // img: {
  
-//     backgroundColor: 'rgba(255, 0, 255, 0.4)',
-//     width: 30,
-//     height : 30
-//   },
-//   video:{
-//   width: 10,
-//   height: 10
-//   }
+  //   backgroundColor: 'rgba(255, 0, 255, 0.4)',
+  //   width: 30,
+  //   height : 30
+  // },
+  // video:{
+  // width: 10,
+  // height: 10
+  // }
 // });
 
 // AppRegistry.registerComponent('react360', () => react360);

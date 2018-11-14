@@ -21,9 +21,7 @@ import { Location, Surface } from 'react-360-web';
 
 var a = null;
 
-function init(bundle, parent, options = {
-    Up: (window)
-}) {
+function init(bundle, parent, options = {}) {
     const r360 = new ReactInstance(bundle, parent, {
         // Add custom options here
         fullScreen: true,
@@ -56,10 +54,9 @@ function init(bundle, parent, options = {
         locationSkylightModel2,
     );
 
-    console.log(Up);
     r360.renderToLocation(
         r360.createRoot('chatModel', {
-            documentMy: Up,
+
             host: window.document.location.host
         }),
         r360.getDefaultSurface(),
