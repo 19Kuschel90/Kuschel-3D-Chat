@@ -69,38 +69,38 @@ app.post('/EDITOR', function(request, response) {
 });
 
 
-app.post('/CHAT', function(req, res) {
+// app.post('/CHAT', function(req, res) {
 
-    if (!req.files)
-        return res.status(400).send('No files were uploaded.');
+//     if (!req.files)
+//         return res.status(400).send('No files were uploaded.');
 
-    // console.log(req.files);
-    // console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-    // console.log(req.files.sampleFile[0]);
-    let index = 0;
-    console.log(req.files.sampleFile);
-    if (typeof req.files.sampleFile != "undefined") {
+//     // console.log(req.files);
+//     // console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+//     // console.log(req.files.sampleFile[0]);
+//     let index = 0;
+//     console.log(req.files.sampleFile);
+//     if (typeof req.files.sampleFile != "undefined") {
 
-        if (Array.isArray(req.files.sampleFile)) {
+//         if (Array.isArray(req.files.sampleFile)) {
 
-            req.files.sampleFile.forEach(element => {
-                index++;
-                // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
-                createFile(element, index);
+//             req.files.sampleFile.forEach(element => {
+//                 index++;
+//                 // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+//                 createFile(element, index);
 
 
 
-                // let sampleFile = req.files.sampleFile[0];
+//                 // let sampleFile = req.files.sampleFile[0];
 
-                // console.log(sampleFile);
-                // Use the mv() method to place the file somewhere on your server
-            });
-        } else {
-            createFile(req.files.sampleFile, 666);
-        }
-    }
-    res.sendFile(path.resolve(__dirname, root, 'index.html'));
-});
+//                 // console.log(sampleFile);
+//                 // Use the mv() method to place the file somewhere on your server
+//             });
+//         } else {
+//             createFile(req.files.sampleFile, 666);
+//         }
+//     }
+//     res.sendFile(path.resolve(__dirname, root, 'index.html'));
+// });
 
 
 
@@ -130,10 +130,7 @@ io.listen(server);
 const Chat = io.of('/Chat');
 
 var socketList = [];
-///////////////////////////////////////
-// Make an instance of SocketIOFileUpload and listen on this socket:
-var G_uploader = new SocketIOFileUpload();
-G_uploader.dir = root + "/static_assets";
+
 var fixMoreSend = {
     name: '',
     mtime: null
@@ -157,9 +154,17 @@ Chat.on('connection', (socket) => {
     //         next(new Error('Not a doge error'));
     //     }
     // });
-    console.log('socket.id:', socket.id);
+    ///////////////////////////////////////
+    // Make an instance of SocketIOFileUpload and listen on this socket:
+    var G_uploader = new SocketIOFileUpload();
+    G_uploader.dir = root + "/static_assets";
+
+    socket.on('One', (data) => {
+        socket.emit('Two', { msg: 'Two' });
+    });
+    console.log('socket.id connection:', socket.id);
     socketList.push(socket);
-    console.log('socketList:', socketList.length);
+    // console.log('socketList:', socketList.length);
 
     let uploader = G_uploader;
     uploader.listen(socket);
@@ -191,7 +196,7 @@ Chat.on('connection', (socket) => {
         }
     });
     socket.on('disconnect', function() {
-        console.log('disconnect', socket.id);
+        console.log('socket.id disconnect', socket.id);
         // uploader._onDisconnect;
     });
     // Do something when a file is saved:

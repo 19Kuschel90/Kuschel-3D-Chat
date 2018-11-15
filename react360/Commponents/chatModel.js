@@ -11,7 +11,7 @@ import {
 } from 'react-360';
 
 // import Viedio from './Vidio';
-
+// var SocketIOFileUpload = require('socketio-file-upload');
 export default class react360 extends React.Component {
   constructor(props){
     super(props);
@@ -52,13 +52,24 @@ export default class react360 extends React.Component {
       },
     ]
   }
+  var othis = this;
   var io = require('socket.io-client');
   this.socket= io('http://127.0.0.1:4000/Chat');
+  // io.origins("your_domain:port www.your_domain:port your_IP:port your_domain:*")
   // this.socket= io( 'http://' + this.props.host + '/Chat');
-  
+  // this.socket.on('connect', function () {
+  //   console.log('connected!');
+  //   socket.emit('greet', { msg: '1' });
+  // });
   this.socket.emit('connection', {});
-  this.socket.on('connectionOK', (data)=>{console.log(data)});// fix handchack
-
+    setInterval(()=> {
+      othis.socket.emit('One',{msg: "One"})
+  }, 2000);
+  this.socket.on('Two',(data) => {console.log(data.msg)});
+  // this.socket.on('connectionOK', (data)=>{console.log(data)});// fix handchack
+  // this.socket.on('respond', function (data) {
+  //   console.log(data);
+  // });
   this.postChat = this.postChat.bind(this);
     this.playVideo = this.playVideo.bind(this);
     this.showVideo = this.showVideo.bind(this);
