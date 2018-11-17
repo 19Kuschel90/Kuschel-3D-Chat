@@ -119,12 +119,40 @@ textarea {
 
 .sendBackButton {
     position: fixed;
-    background: rgb(81, 206, 255);
+    background: rgba(72, 221, 221, 0.9);
     top: 0;
     left: 0;
     padding: 10px;
+    color: #000000;
+    border: solid #000000 1px;
     opacity: 0.9;
     border-radius: 0px 0px 30px;
+}
+
+.animate-opacity-FadeIN {
+    animation: opac 2.0s
+}
+
+.animate-spin {
+    animation: w3-spin 2s infinite linear
+}
+
+@keyframes w3-spin {
+    0% {
+        transform: rotate(0deg)
+    }
+    100% {
+        transform: rotate(359deg)
+    }
+}
+
+@keyframes opac {
+    from {
+        opacity: 0
+    }
+    to {
+        opacity: 1
+    }
 }
 
 @media only screen and (min-width: 700px) {

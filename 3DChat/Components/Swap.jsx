@@ -23,7 +23,7 @@ module.exports =  class App extends React.Component {
     render(){
     
         return(
-            <div>
+            <div className="animate-opacity-FadeIN">
 
             <BrowserRouter>
                 <Switch > 

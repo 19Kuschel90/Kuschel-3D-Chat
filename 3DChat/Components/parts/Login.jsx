@@ -26,7 +26,7 @@ module.exports =  class Login extends React.Component {
         return(
             <div>
                  <div className="logo">
-            <img src="/img/drawing.svg"></img>
+            <img src="/img/drawing.svg" class="editor editorAusWahlPic "></img>
         </div>
         <form>
 

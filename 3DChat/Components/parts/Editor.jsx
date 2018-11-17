@@ -6,7 +6,13 @@ module.exports =  class Editor extends React.Component {
     constructor(props){
         super(props);   
        this.state = {
-            src: ['AvatarSave/drawing.svg','AvatarSave/Pony.svg','AvatarSave/drawing-1.svg'],
+            src: [
+                'AvatarSave/drawing.svg',
+                'AvatarSave/Pony.svg',
+                'AvatarSave/drawing-1.svg',
+                 'AvatarSave/magic_Right2.svg',
+                 'AvatarSave/Logo_200x200v6.png'
+                ],
             index: 0,
             // userImg: 'AvatarSave/drawing.svg',
             uploadProgress: 100,
@@ -16,7 +22,6 @@ module.exports =  class Editor extends React.Component {
         this.newUserImg = this.newUserImg.bind(this);
         this.forwordMy = this.forwordMy.bind(this);
         this.backMy = this.backMy.bind(this);
-        this.getUserImg = this.getUserImg.bind(this);
         this.getMakeImg = this.getMakeImg.bind(this);
         
     }
@@ -104,11 +109,6 @@ module.exports =  class Editor extends React.Component {
         // console.log(window.localStorage.getItem('Avatar', event.file.name));
     }
 
-    getUserImg(){
-        return (
-            <img alt="not" src={"static_assets/" + this.state.userImg}  className="editor editorUserImg"  ></img>
-        );
-    }
  
     getMakeImg(){
         return (
@@ -120,10 +120,12 @@ module.exports =  class Editor extends React.Component {
     render(){
     
         return(
-            <div>
+            <div >
+                  <a href="/">
+                    <div className="sendBackButton">Back</div>
+                   </a>
                              <div className="editorAvatar">
                                 <p>Your Avatar:</p>
-                                {/* {this.getUserImg()} */}
                                 <div>
                                 <div>
 
