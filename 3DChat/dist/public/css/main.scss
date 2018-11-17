@@ -3,10 +3,15 @@
 @import "weapons";
 @import "registration";
 @import "AddToHomeScreen";
+@import "editor";
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
 }
 
 body {
@@ -76,12 +81,18 @@ body::selection {
 }
 
 footer {
-    text-align: center;
+    font-size: 1rem;
+    width: 50%;
+    color: wheat;
+    opacity: 0.9;
+    position: fixed;
+    bottom: 0;
+    left: 2%;
+    text-align: left;
     width: 70%;
     margin: 0 auto;
     margin-top: 50px;
-    font-size: 40px;
-    background-color: aqua;
+    /* background-color: aqua; */
 }
 
 // .sendButtonDiv {

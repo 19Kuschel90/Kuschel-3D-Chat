@@ -8,7 +8,8 @@ module.exports =  class Login extends React.Component {
             uploadProgress: 100,
             text: '',
             fileInput: ( <input type="file" id="this.siofu_input" />),
-            userName: "No Name"
+            userName: "No Name",
+            error: "Error:"
         }
         console.log(localStorage.getItem('Avatar'));
         console.log(localStorage.getItem('UserName'));
@@ -18,7 +19,6 @@ module.exports =  class Login extends React.Component {
     }
     
     componentDidMount(){
-
         var othis = this;
         var io = require('socket.io-client');
         this.socket = io('/Chat');
@@ -42,12 +42,14 @@ module.exports =  class Login extends React.Component {
         this.siofu.addEventListener("progress", function(event){
             // console.log(event);
         //   console.log(  (event.bytesLoaded / event.file.size) * 100);
-            othis.setState({uploadProgress: (event.bytesLoaded / event.file.size) * 100});
+        var temp = (event.bytesLoaded / event.file.size) * 100;
+        temp = Math.round(temp);
+            othis.setState({uploadProgress: temp});
         });          
       
         setInterval(()=> {
             othis.socket.emit('One',{msg: "One"})
-        }, 2000);
+        }, 500);
         this.socket.on('Two',(data) => {console.log(data.msg)});
 
         this.siofu.addEventListener("complete", function(event){
@@ -65,6 +67,10 @@ module.exports =  class Login extends React.Component {
         othis.send("image",event.file.name);
     }
 
+        });
+        this.siofu.addEventListener("error", function(event){
+            this.setState({error: "Upload Fail "});
+            this.setState({uploadProgress: 100});
         });
     }
     
@@ -103,6 +109,7 @@ module.exports =  class Login extends React.Component {
             <button id="my_button">Upload File</button>   
             );
      }
+
      
       }
 
@@ -121,7 +128,7 @@ module.exports =  class Login extends React.Component {
 
                  <label>Upload File: <input type="file" id="file_input" /></label>
                  {this.uploadState()}
-            
+                {this.state.error}
                 <button onClick={() => this.send("text")} className="sendButton">Send</button>
                 </div>
             </div>

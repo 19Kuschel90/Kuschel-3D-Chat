@@ -23,10 +23,8 @@ export default class react360 extends React.Component {
         user: "Hello Bot",
         text: "Welcame",
         image: "drawing.svg",
-        Video: {
-          name: "",//MoMIdent.mp4
-          play: false
-        },
+        VideoName:  "",//MoMIdent.mp4
+        play: false
       }
     ]
 

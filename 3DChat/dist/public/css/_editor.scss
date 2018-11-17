@@ -1,0 +1,23 @@
+.editor {
+    width: 150px;
+    height: 150px;
+    // margin-left: 4px;
+    border: solid 3px;
+    border-radius: 50%;
+    background: rgba(153, 220, 220, 0.5)
+}
+
+.editorButtonLeft {
+    width: 40%;
+    height: 66px;
+}
+
+.editorButtonRight {
+    width: 40%;
+    height: 66px;
+}
+
+.editorAvatar {
+    font-size: 2rem;
+    text-align: center;
+}

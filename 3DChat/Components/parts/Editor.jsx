@@ -8,12 +8,16 @@ module.exports =  class Editor extends React.Component {
        this.state = {
             src: ['AvatarSave/drawing.svg','AvatarSave/Pony.svg','AvatarSave/drawing-1.svg'],
             index: 0,
-            userImg: 'AvatarSave/drawing.svg'
+            // userImg: 'AvatarSave/drawing.svg',
+            uploadProgress: 100,
+            error: "Error:"
         }
         this.nextImg = this.nextImg.bind(this);
         this.newUserImg = this.newUserImg.bind(this);
         this.forwordMy = this.forwordMy.bind(this);
         this.backMy = this.backMy.bind(this);
+        this.getUserImg = this.getUserImg.bind(this);
+        this.getMakeImg = this.getMakeImg.bind(this);
         
     }
     
@@ -21,15 +25,12 @@ module.exports =  class Editor extends React.Component {
         if(localStorage.getItem('Avatar')  ){ 
             console.log('Avatar');
            if(this.state.src.find(x => x == localStorage.getItem('Avatar'))){
-               debugger;
                this.setState({index: this.state.src.indexOf(localStorage.getItem('Avatar')) });
-               this.setState({userImg:  this.state.src[ this.state.src.indexOf(localStorage.getItem('Avatar'))]});
+            //    this.setState({userImg:  this.state.src[ this.state.src.indexOf(localStorage.getItem('Avatar'))]});
             }else{
-               debugger;
-
                 this.setState({src:  [...this.state.src, localStorage.getItem('Avatar')]});
                 this.setState({index: this.state.src.length });
-                this.setState({userImg:  localStorage.getItem('Avatar')});
+                // this.setState({userImg:  localStorage.getItem('Avatar')});
             }
         }
         let othis = this;
@@ -43,10 +44,12 @@ module.exports =  class Editor extends React.Component {
      
         // Do something on upload progress:
         this.siofu.addEventListener("progress", function(event){
-            var percent = event.bytesLoaded / event.file.size * 100;
-            console.log("File is", percent.toFixed(2), "percent loaded");
-        });
-     
+            othis.setState({error: "Error"});
+            
+            var temp = (event.bytesLoaded / event.file.size) * 100;
+            temp = Math.round(temp);
+                othis.setState({uploadProgress: temp});
+        });   
         // Do something when a file is uploaded:
         this.siofu.addEventListener("complete", function(event){
             console.log("event.success",event.success);
@@ -54,7 +57,12 @@ module.exports =  class Editor extends React.Component {
             othis.setState({src: [...othis.state.src, event.file.name]});
             othis.setState({index: othis.state.src.length -1});
             othis.setState({userImg:  event.file.name});
-            window.localStorage.setItem('Avatar', othis.state.userImg); 
+            // window.localStorage.setItem('Avatar', event.file.name); 
+            othis.newUserImg(event.file.name);
+        });
+        this.siofu.addEventListener("error", function(event){
+            othis.setState({error: "Upload Fail "});
+            // this.setState({uploadProgress: 100});
         });
     }
 
@@ -68,7 +76,7 @@ module.exports =  class Editor extends React.Component {
     }
     
     nextImg(number){
-
+       let othis = this;
         var temp = this.state.index + number;
         if(temp < 0 )
         {
@@ -80,34 +88,62 @@ module.exports =  class Editor extends React.Component {
         }
         // console.log(temp);
         // this.setState({index: temp});
-        this.setState({index: temp});
-        console.log(this.state.index);
-        console.log(this.state.src[this.state.index]);
-        console.log(this.state.userImg);
+        this.setState({index: temp},()=> othis.newUserImg(this.state.src[this.state.index]));
+    
+        // console.log(this.state.index);
+        // console.log(this.state.src[this.state.index]);
+        // console.log(this.state.userImg);
         
     }
 
-    newUserImg()
+    newUserImg(srcName)
     {
-        this.setState({userImg: this.state.src[this.state.index]});
-        window.localStorage.setItem('Avatar', this.state.src[this.state.index]);
-        console.log(this.state.userImg);
+        console.log(srcName);
+        // this.setState({userImg: this.state.src[this.state.index]});
+        window.localStorage.setItem('Avatar', srcName);
         // console.log(window.localStorage.getItem('Avatar', event.file.name));
     }
 
+    getUserImg(){
+        return (
+            <img alt="not" src={"static_assets/" + this.state.userImg}  className="editor editorUserImg"  ></img>
+        );
+    }
  
+    getMakeImg(){
+        return (
+            <img alt="not" src={"static_assets/" + this.state.src[this.state.index]}  className="editor editorAusWahlPic"  onClick={this.newUserImg} ></img>
+        
+            );
+    }
+
     render(){
     
         return(
             <div>
-                             <img alt="not" src={"static_assets/" + this.state.userImg}  width="500px" height="500px" className="editor"   id="img"></img>
-                             <div className="editorAusWahl">
+                             <div className="editorAvatar">
+                                <p>Your Avatar:</p>
+                                {/* {this.getUserImg()} */}
+                                <div>
+                                <div>
+
+                                {this.getMakeImg()}
+                                </div>
                                 <button className="editorButtonLeft" onClick={this.forwordMy}>left</button>
-                             <img alt="not" src={"static_assets/" + this.state.src[this.state.index]}  width="500px" height="500px" className="editor editorAusWahlPic"  onClick={this.newUserImg} id="img"></img>
                                 <button className="editorButtonRight" onClick={this.backMy}>right</button>
-                                <p><label>Choose File: <input type="file" id="upload_input" accept="image/png, image/jpeg"/></label></p>
+                                </div>
+                                <p><label>Choose File: <input type="file" id="upload_input" accept="image/png, image/jpeg"/></label>
+                                {this.state.error}</p>
                              </div>
-                             <div><a href="/CHAT">Go to Chat</a></div>
+                             {/* <div><a href="/CHAT">Go to Chat</a></div> */}
+                                    {/* <form> */}
+
+                                          
+                    <a href="/CHAT" className="LoginInputButtonText" >  
+                      <div type='submit' className="LoginInputButton"> 
+                      Go to Chat
+                  </div></a>
+        {/* </form> */}
 
                  </div>
         );

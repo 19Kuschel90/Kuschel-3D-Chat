@@ -195,6 +195,23 @@ Chat.on('connection', (socket) => {
             // uploader.abort(socket.id, socket);
         }
     });
+
+    uploader.uploadValidator = function(event, callback) {
+        // asynchronous operations allowed here; when done,
+        if (/\.svg$/.test(event.file.name) ||
+            /\.png$/.test(event.file.name) ||
+            /\.bmp$/.test(event.file.name) ||
+            /\.mp4$/.test(event.file.name) ||
+            /\.jpg$/.test(event.file.name)
+        ) {
+            time.CL('uploadValidator data  IO:' + event.file.name);
+            callback(true);
+        } else {
+            time.CL('uploadValidator data not IO:' + event.file.name);
+            callback(false);
+        }
+    };
+
     socket.on('disconnect', function() {
         console.log('socket.id disconnect', socket.id);
         // uploader._onDisconnect;
