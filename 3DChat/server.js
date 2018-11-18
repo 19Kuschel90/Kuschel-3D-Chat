@@ -255,16 +255,43 @@ function sendUserMessage(data) {
 }
 
 
-// uploadEditor
-var G_uploader2 = new SocketIOFileUpload();
-G_uploader2.dir = root + "/static_assets";
 const uploadEditor = io.of('/uploadEditor');
 
 uploadEditor.on('connection', (socket) => {
+    // uploadEditor
+    var uploader = new SocketIOFileUpload();
+    uploader.dir = root + "/static_assets";
 
-    let uploader = G_uploader2;
+
     uploader.listen(socket);
+    uploader.uploadValidator = function(event, callback) {
+        // asynchronous operations allowed here; when done,
+        if (/\.svg$/.test(event.file.name) ||
+            /\.png$/.test(event.file.name) ||
+            /\.bmp$/.test(event.file.name) ||
+            /\.jpg$/.test(event.file.name)
+        ) {
+            time.CL('uploadValidator data  IO:' + event.file.name);
+            callback(true);
+        } else {
+            time.CL('uploadValidator data not IO:' + event.file.name);
+            callback(false);
+        }
+    };
+    uploader.on("start", function(event) {
+        // event.file.name += "awd";
+        if (/\.svg$/.test(event.file.name) ||
+            /\.png$/.test(event.file.name) ||
+            /\.bmp$/.test(event.file.name) ||
+            /\.jpg$/.test(event.file.name)
+        ) {
+            return;
+        } else {
+            uploader.abort(event.file.id, socket);
+        }
+    });
     uploader.on("saved", function(event) {
+        event.file.clientDetail.newName = event.file.base + getLastName(event.file.name);
         console.log(' uploadEditor type n:', event.file);
         // Pic
         // if (event.file.name.match(/.svg/) ||
@@ -306,3 +333,12 @@ uploadEditor.on('connection', (socket) => {
         console.log("Error from uploader", event);
     });
 });
+
+function getLastName(name) {
+
+    if (/\.svg$/.test(name)) return '.svg';
+    if (/\.png$/.test(name)) return '.png';
+    if (/\.bmp$/.test(name)) return '.bmp';
+    if (/\.jpg$/.test(name)) return '.jpg';
+    if (/\.mp4$/.test(name)) return '.mp4';
+}

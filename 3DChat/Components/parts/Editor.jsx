@@ -11,12 +11,13 @@ module.exports =  class Editor extends React.Component {
                 'AvatarSave/Pony.svg',
                 'AvatarSave/drawing-1.svg',
                  'AvatarSave/magic_Right2.svg',
-                 'AvatarSave/Logo_200x200v6.png'
+                 'AvatarSave/Logo_200x200v6.png',
+                 'AvatarSave/mapV0.png',
+                 'AvatarSave/sketch-1528670047117.png',
+                 'AvatarSave/sketch-1528893149916.png'
                 ],
             index: 0,
-            // userImg: 'AvatarSave/drawing.svg',
-            uploadProgress: 100,
-            error: "Error:"
+            UploadState: "Ready"
         }
         this.nextImg = this.nextImg.bind(this);
         this.newUserImg = this.newUserImg.bind(this);
@@ -46,28 +47,30 @@ module.exports =  class Editor extends React.Component {
         this.siofu = new SocketIOFileUpload(this.socket);
         // document.getElementById("upload_btn").addEventListener("click", this.siofu.prompt, false);
         this.siofu.listenOnInput(document.getElementById("upload_input"));
-     
+      
         // Do something on upload progress:
         this.siofu.addEventListener("progress", function(event){
-            othis.setState({error: "Error"});
             
             var temp = (event.bytesLoaded / event.file.size) * 100;
-            temp = Math.round(temp);
-                othis.setState({uploadProgress: temp});
+            temp = String(Math.round(temp)) + "%";
+            console.log(temp);
+            othis.setState({UploadState:  temp});
         });   
         // Do something when a file is uploaded:
         this.siofu.addEventListener("complete", function(event){
+            console.log(event.detail.newName);
             console.log("event.success",event.success);
             console.log("event.file", event.file);
-            othis.setState({src: [...othis.state.src, event.file.name]});
+            othis.setState({src: [...othis.state.src, event.detail.newName]});
             othis.setState({index: othis.state.src.length -1});
-            othis.setState({userImg:  event.file.name});
+            // othis.setState({userImg:  event.file.name});
             // window.localStorage.setItem('Avatar', event.file.name); 
             othis.newUserImg(event.file.name);
+            othis.setState({UploadState:  "Ready"});
+
         });
         this.siofu.addEventListener("error", function(event){
-            othis.setState({error: "Upload Fail "});
-            // this.setState({uploadProgress: 100});
+            othis.setState({UploadState: "Upload Fail "});
         });
     }
 
@@ -134,18 +137,17 @@ module.exports =  class Editor extends React.Component {
                                 <button className="editorButtonLeft" onClick={this.forwordMy}>left</button>
                                 <button className="editorButtonRight" onClick={this.backMy}>right</button>
                                 </div>
-                                <p><label>Choose File: <input type="file" id="upload_input" accept="image/png, image/jpeg"/></label>
-                                {this.state.error}</p>
+                                <p><label>Choose File: <input type="file" id="upload_input" accept="image/png, image/jpeg"/></label></p>
+                                <div>
+                                    Upload State: {this.state.UploadState}
+                                    </div>
                              </div>
-                             {/* <div><a href="/CHAT">Go to Chat</a></div> */}
-                                    {/* <form> */}
 
                                           
                     <a href="/CHAT" className="LoginInputButtonText" >  
                       <div type='submit' className="LoginInputButton"> 
                       Go to Chat
                   </div></a>
-        {/* </form> */}
 
                  </div>
         );

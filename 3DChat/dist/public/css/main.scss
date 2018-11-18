@@ -129,6 +129,11 @@ textarea {
     border-radius: 0px 0px 30px;
 }
 
+.sendBackButton:hover {
+    border-color: aquamarine;
+    background-color: rgb(15, 255, 55);
+}
+
 .animate-opacity-FadeIN {
     animation: opac 2.0s
 }

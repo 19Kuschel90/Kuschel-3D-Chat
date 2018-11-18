@@ -24,8 +24,13 @@ export default class react360 extends React.Component {
       newInputIntervalSwapState: false,
       newInputIntervalState: false,
       buttonSwap: 'rgba(153, 220, 220, 0.5)',
-      buttonSwapBySwap: 'rgba(153, 0, 220, 0.5)',
+      buttonSwapBySwap: 'rgba(15, 255, 55, 0.5)',
       buttonSwapOR: 'rgba(153, 220, 220, 0.5)',
+      buttonUpDownORColor:  'rgba(153, 220, 220, 0.5)',
+      buttonUpDownHoverColor:  'rgba(15, 255, 55,0.5)',
+      buttonUpNowColor:  'rrgba(153, 220, 220, 0.5)',
+      buttonDownNowColor:  'rrgba(153, 220, 220, 0.5)',
+
       Chat: [{
         type: "text",//type is: text || image || Video 
         avatar: "drawing.svg",
@@ -36,31 +41,12 @@ export default class react360 extends React.Component {
           play: false
         
       }
-      // ,{
-      //   type: "Video",
-      //   avatar: "drawing.svg",
-      //   user: "Hello Bot",
-      //   text: "Welcame",
-      //   image: "",
-      //   VideoName:  "MoMIdent.mp4",//MoMIdent.mp4
-      //     play: false
-        
-      // }
-     // ,{
-      //   type: "image",
-      //   avatar: "drawing.svg",
-      //   user: "Hello Bot",
-      //   text: "Welcame",
-      //   image: "drawing-1.svg",
-      //   VideoName:  "MoMIdent.mp4",//MoMIdent.mp4
-      //     play: false
-        
-      // },
+
     ]
   }
   var othis = this;
   var io = require('socket.io-client');
-  // this.socket= io('http://127.0.0.1:/4000/Chat');
+  // this.socket= io('http://127.0.0.1:4000/Chat');
   
   // io.origins("your_domain:port www.your_domain:port your_IP:port your_domain:*")
   this.socket= io( 'http://' + this.props.host + '/Chat');
@@ -78,7 +64,17 @@ export default class react360 extends React.Component {
   //   console.log(data);
   // });
   this.postChat = this.postChat.bind(this);
-    this.playVideo = this.playVideo.bind(this);
+    this.playVideo = this.playVideo.bind(this);//mouseEnterButton
+
+    this.mouseEnterButtonUp = this.mouseEnterButtonUp.bind(this);
+    this.mouseExitButtonUp = this.mouseExitButtonUp.bind(this);
+    
+    this.mouseEnterButtonDown = this.mouseEnterButtonDown.bind(this);
+    this.mouseExitButtonDown = this.mouseExitButtonDown.bind(this);
+
+
+    this.mouseEnterButtonToEnd = this.mouseEnterButtonToEnd.bind(this);
+    this.mouseExitButtonToEnd = this.mouseExitButtonToEnd.bind(this);
     this.showVideo = this.showVideo.bind(this);
     this.playVideo = this.playVideo.bind(this);
     this.setVideoState = this.setVideoState.bind(this);
@@ -104,8 +100,9 @@ this.socket.on('inputMessage', (data) => {
  if(this.state.newInputIntervalIsRunnig == false){
  this.newInputIntervalStartStop();
  }
+ 
+ console.log(data);
 });
-
 
 }
 
@@ -183,6 +180,7 @@ postChat()
                 padding: 2,
                 margin: 5,
                 borderRadius: 50,
+      
                 transform: [
                 { translate: [0, 0, 0] },
                   { scale: 1 },
@@ -223,7 +221,6 @@ postChat()
             width: 50,
           height: 50,
           borderRadius: 50,
-
           transform: [
             { translate: [0, 0, 0] },
               { scale: 1 },
@@ -410,6 +407,39 @@ setToEnd(){
   }
 }
 
+mouseEnterButtonUp(e){
+
+  console.log("endter");
+  console.log(e);
+  this.setState({buttonUpNowColor: this.state.buttonUpDownHoverColor});
+}
+
+mouseExitButtonUp(){
+  console.log("onExit");
+  this.setState({buttonUpNowColor: this.state.buttonUpDownORColor});
+
+}
+mouseEnterButtonDown(){
+  console.log("endter");
+  this.setState({buttonDownNowColor: this.state.buttonUpDownHoverColor});
+}
+
+mouseExitButtonDown(){
+  console.log("onExit");
+  this.setState({buttonDownNowColor: this.state.buttonUpDownORColor});
+
+}
+mouseEnterButtonToEnd(){
+  console.log("endter");
+  this.setState({buttonSwap: this.state.buttonUpDownHoverColor});
+}
+mouseExitButtonToEnd(){
+  console.log("endter");
+  this.setState({buttonSwap: this.state.buttonUpDownORColor});
+}
+
+
+
   render() {
     return (
       <View style={{
@@ -418,11 +448,8 @@ setToEnd(){
       }
         
         }>
-      
-   
-       
           {this.postChat()}
-            <VrButton style={{
+            <VrButton onEnter={this.mouseEnterButtonUp}  onExit={this.mouseExitButtonUp} style={{
         width: 200,
         height: 200,
         
@@ -436,7 +463,7 @@ setToEnd(){
         // borderColor: '#66ffff',
         
         transform: [
-          { translate: [520, 500, 0] },
+          { translate: [520, 530, 0] },
           { scale: 1 },
           { rotateY: 0 } 
         ]
@@ -447,13 +474,13 @@ setToEnd(){
         textAlign: "center",
         width: 200,
         height: 200,
-         backgroundColor: 'rgba(153, 220, 220, 0.5)',
+         backgroundColor: this.state.buttonUpNowColor,
          fontSize: 30,
 
         }}
       >Up</Text>
     </VrButton>
-          <VrButton style={{
+          <VrButton onEnter={this.mouseEnterButtonDown}  onExit={this.mouseExitButtonDown} style={{
         width: 200,
         height: 200,
         
@@ -467,7 +494,7 @@ setToEnd(){
         // borderColor: '#66ffff',
         
         transform: [
-          { translate: [520, 500, 0] },
+          { translate: [520, 530, 0] },
           { scale: 1 },
           { rotateY: 0 } 
         ]
@@ -478,13 +505,13 @@ setToEnd(){
         textAlign: "center",
         width: 200,
         height: 200,
-         backgroundColor: 'rgba(153, 220, 220, 0.5)',
+         backgroundColor: this.state.buttonDownNowColor,
          fontSize: 30,
 
         }}
       >down</Text>
     </VrButton>
-          <VrButton style={{
+          <VrButton onEnter={this.mouseEnterButtonToEnd}  onExit={this.mouseExitButtonToEnd} style={{
         width: 200,
         height: 200,
         
@@ -498,7 +525,7 @@ setToEnd(){
         // borderColor: '#66ffff',
         
         transform: [
-          { translate: [520, 500, 0] },
+          { translate: [520, 530, 0] },
           { scale: 1 },
           { rotateY: 0 } 
         ]

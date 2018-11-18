@@ -10,11 +10,39 @@
 .editorButtonLeft {
     width: 98px;
     height: 66px;
+    /* padding: 15px; */
+    margin-top: 45px;
+    text-decoration: none;
+    /* margin: 0 auto; */
+    text-align: center;
+    font-family: 'Mali', cursive;
+    font-size: 2.2rem;
+    border-radius: 50% 0% 0% 50%;
+    border: inset 5px;
+    border-color: aqua;
+    background-color: rgb(15, 255, 175);
 }
 
 .editorButtonRight {
     width: 98px;
     height: 66px;
+    /* padding: 15px; */
+    margin-top: 45px;
+    text-decoration: none;
+    /* margin: 0 auto; */
+    text-align: center;
+    font-family: 'Mali', cursive;
+    font-size: 2.2rem;
+    border-radius: 0% 50% 50% 0%;
+    border: inset 5px;
+    border-color: aqua;
+    background-color: rgb(15, 255, 175);
+}
+
+.editorButtonLeft:hover,
+.editorButtonRight:hover {
+    border-color: aquamarine;
+    background-color: rgb(15, 255, 55);
 }
 
 .editorAvatar {
