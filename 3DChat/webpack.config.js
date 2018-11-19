@@ -1,8 +1,11 @@
 module.exports = {
     mode: 'development',
-    entry: "./App.jsx",
+    entry: {
+        SinglePage: "./App.jsx",
+        Chat3D: "./chatApp.jsx"
+    },
     output: {
-        filename: "./public/js/SinglePage.js"
+        filename: "./public/js/[name].js"
     },
     module: {
         rules: [{

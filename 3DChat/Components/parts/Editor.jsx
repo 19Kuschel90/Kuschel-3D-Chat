@@ -30,14 +30,16 @@ module.exports =  class Editor extends React.Component {
     componentDidMount(){
         if(localStorage.getItem('Avatar')  ){ 
             console.log('Avatar');
-           if(this.state.src.find(x => x == localStorage.getItem('Avatar'))){
-               this.setState({index: this.state.src.indexOf(localStorage.getItem('Avatar')) });
-            //    this.setState({userImg:  this.state.src[ this.state.src.indexOf(localStorage.getItem('Avatar'))]});
+            if(this.state.src.find(x => x == localStorage.getItem('Avatar'))){
+                this.setState({index: this.state.src.indexOf(localStorage.getItem('Avatar')) });
+                
             }else{
                 this.setState({src:  [...this.state.src, localStorage.getItem('Avatar')]});
                 this.setState({index: this.state.src.length });
-                // this.setState({userImg:  localStorage.getItem('Avatar')});
             }
+        }else{
+            this.newUserImg(this.state.src[this.state.index]);
+
         }
         let othis = this;
         var io = require('socket.io-client');

@@ -5,7 +5,6 @@ var Switch = require('react-router-dom').Switch;
 
 var Login = require('./parts/Login');
 var Editor = require('./parts/Editor');
-var Chat = require('./parts/Chat');
 
 module.exports =  class App extends React.Component {
     constructor(props){
@@ -27,12 +26,7 @@ module.exports =  class App extends React.Component {
 
             <BrowserRouter>
                 <Switch > 
-                <Route  path="/CHAT" render={() => {
-        window.react360Helper();
-
-              return (<Chat ></Chat>);
-              
-            }} />
+           
             <Route path="/EDITOR" component={Editor} />
                     <Route path="/"  render={() => {
               return (<Login UserName={this.state.userName}></Login>);

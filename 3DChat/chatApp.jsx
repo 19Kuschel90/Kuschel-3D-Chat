@@ -1,9 +1,9 @@
 var React = require('react');
 var ReactDOM = require("react-dom");
-var Swap = require("./Components/Swap");
+var Chat = require("./Components/parts/Chat");
 
 
 
 ReactDOM.render(
-    <Swap></Swap>
+    <Chat></Chat>
 , document.getElementById('react-container'));

@@ -1,7 +1,9 @@
 var React = require('react');
 
 var SocketIOFileUpload = require('socketio-file-upload');
-module.exports =  class Login extends React.Component {
+
+
+module.exports =  class chat extends React.Component {
     constructor(props){
         super(props);   
         this.state = {
@@ -9,10 +11,8 @@ module.exports =  class Login extends React.Component {
             text: '',
             fileInput: ( <input type="file" id="this.siofu_input" />),
             userName: "No Name",
-            error: "Error:"
+            UploadState: "Ready"
         }
-        // console.log(localStorage.getItem('Avatar'));
-        // console.log(localStorage.getItem('UserName'));
         this.changeMessage = this.changeMessage.bind(this);
         this.send = this.send.bind(this);
         this.uploadState =this.uploadState.bind(this);
@@ -24,14 +24,7 @@ module.exports =  class Login extends React.Component {
         this.socket = io('/Chat');
         
         this.socket.emit('connection', {
-            // headers: null /* the headers sent as part of the handshake */,
-            // time: null /* the date of creation (as string) */,
-            // address: null /* the ip of the client */,
-            // xdomain: null /* whether the connection is cross-domain */,
-            // secure: null /* whether the connection is secure */,
-            // issued: null /* the date of creation (as unix timestamp) */,
-            // url:  null/* the request URL string */,
-            // query:null /* the query object */
+
           });
   this.socket.on('connectionOK', (data)=>{console.log(data)});// fix handchack
 
@@ -71,7 +64,7 @@ module.exports =  class Login extends React.Component {
 
         });
         this.siofu.addEventListener("error", function(event){
-            this.setState({error: "Upload Fail "});
+            this.setState({UploadState: "Upload Fail"});
             this.setState({uploadProgress: 100});
         });
     }
@@ -97,6 +90,7 @@ module.exports =  class Login extends React.Component {
             text: event.target.value
         });
       }
+
 
       uploadState(){
      if( this.state.uploadProgress !== 100 ){
@@ -126,13 +120,19 @@ module.exports =  class Login extends React.Component {
 
                  <label>Upload File: <input type="file" id="file_input" /></label>
                  {this.uploadState()}
-                {this.state.error}
-                <div>
-                 <textarea rows="4" cols="40" onChange={this.changeMessage}></textarea>
+                 <div>
+                                    Upload State: {this.state.UploadState}
+                                    </div>
+                <span>
+                 <textarea rows="2" cols="20" onChange={this.changeMessage}></textarea>
+                </span>
+                <span>
                 <button onClick={() => this.send("text")} className="sendButton">Send</button>
-                </div>
+
+                </span>
                 </div>
             </div>
         );
     }
 }
+

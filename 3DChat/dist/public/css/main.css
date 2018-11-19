@@ -41,45 +41,6 @@
   left: 3%;
 }
 
-.weapons-1 {
-  width: 60px;
-  height: 60px;
-  border-style: solid;
-  position: fixed;
-  bottom: 7%;
-  left: 30%;
-}
-
-.weapons-2 {
-  width: 60px;
-  height: 60px;
-  border-style: solid;
-  position: fixed;
-  bottom: 7%;
-  left: 40%;
-}
-
-.weapons-3 {
-  width: 60px;
-  height: 60px;
-  border-style: solid;
-  position: fixed;
-  bottom: 7%;
-  left: 50%;
-}
-
-.pic {
-  width: 60px;
-  height: 60px;
-}
-
-.weapons-1:hover,
-.weapons-2:hover,
-.weapons-3:hover {
-  border-color: coral;
-  background: pink;
-}
-
 .registration {
   width: 80%;
   margin: 0 auto;
@@ -318,8 +279,9 @@ footer {
 }
 
 .sendButton {
-  height: 68px;
+  height: 46px;
   float: right;
+  width: 95px;
 }
 
 .sendChatPostion {
@@ -333,6 +295,9 @@ footer {
 
 textarea {
   padding: 3px;
+  background: rgba(153, 220, 220, 0.5);
+  border: solid 5px;
+  border-color: aqua;
 }
 
 .sendBackButton {

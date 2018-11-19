@@ -53,35 +53,17 @@
                 </div>
             </div>
         </div>
+        <script src="./js/Chat3D.js"></script>
+        <script src="./js/client.bundle.js"></script>
+        <script src="js/react360Helper.js"></script>
 
 
-
-
-        <script src="js/SinglePage.js"></script>
     </div>
-    <div class="displayNone AddToHomeScreenMTop" id="addToHome">
-        <p class="AddToHomeScreenButton">Add To Your Homescreen!</p>
-    </div>
+
     <footer>
         Heiko Kuschel
     </footer>
-    <script src="js/Application.js"></script>
-    <script>
-        console.log('asd');
-        if ('serviceWorker' in navigator) {  
 
-            navigator.serviceWorker.register('/sw.js')
-                .then(function(registration) {    // Registration was successful
-                       
-                    console.log('ServiceWorker registration successful with scope: ', registration.scope);  
-
-                }).catch(function(err) {    // registration failed :(
-                       
-                    console.log('ServiceWorker registration failed: ', err);  
-                });
-
-        }
-    </script>
 </body>
 
 </html>

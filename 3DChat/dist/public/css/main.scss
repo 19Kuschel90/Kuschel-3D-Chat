@@ -1,6 +1,6 @@
 @import "playerSprites";
 @import "controller";
-@import "weapons";
+// @import "weapons";
 @import "registration";
 @import "AddToHomeScreen";
 @import "editor";
@@ -95,13 +95,10 @@ footer {
     /* background-color: aqua; */
 }
 
-// .sendButtonDiv {
-//     margin: 0 auto;
-//     width: 60%;
-// }
 .sendButton {
-    height: 68px;
+    height: 46px;
     float: right;
+    width: 95px;
 }
 
 .sendChatPostion {
@@ -115,6 +112,9 @@ footer {
 
 textarea {
     padding: 3px;
+    background: rgba(153, 220, 220, 0.5);
+    border: solid 5px;
+    border-color: aqua;
 }
 
 .sendBackButton {

@@ -57,7 +57,7 @@ app.get('/EDITOR', function(request, response) {
 
 app.get('/CHAT', function(request, response) {
     // time.CL('requst is  ' + request);
-    response.sendFile(path.resolve(__dirname, root, 'index.html'));
+    response.sendFile(path.resolve(__dirname, root, '3D.html'));
 });
 
 app.post('/EDITOR', function(request, response) {
