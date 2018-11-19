@@ -142,6 +142,10 @@ textarea {
     animation: w3-spin 2s infinite linear
 }
 
+.load {
+    font-size: 5rem;
+}
+
 @keyframes w3-spin {
     0% {
         transform: rotate(0deg)

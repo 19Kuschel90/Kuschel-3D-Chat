@@ -223,6 +223,8 @@ Chat.on('connection', (socket) => {
                 name: event.file.name,
                 mtime: event.file.mtime
             }
+            event.file.clientDetail.newName = event.file.base + getLastName(event.file.name);
+
             console.log('type n:', event.file.name);
             console.log("saved");
         }
