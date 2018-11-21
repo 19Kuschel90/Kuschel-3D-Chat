@@ -7,9 +7,7 @@ module.exports =  class chat extends React.Component {
     constructor(props){
         super(props);   
         this.state = {
-            uploadProgress: 100,
             text: '',
-            fileInput: ( <input type="file" id="this.siofu_input" />),
             userName: "No Name",
             UploadState: "Ready"
         }
@@ -30,16 +28,12 @@ module.exports =  class chat extends React.Component {
 
             this.siofu = new SocketIOFileUpload(this.socket);
 
-        // this.siofu.listenOnDrop(document.getElementById("file_drop"));
         this.siofu.listenOnSubmit(document.getElementById("my_button"), document.getElementById("file_input"));
         this.siofu.addEventListener("progress", function(event){
-            // console.log(event);
-        //   console.log(  (event.bytesLoaded / event.file.size) * 100);
-        var temp = (event.bytesLoaded / event.file.size) * 100;
-        temp = Math.round(temp);
-            othis.setState({uploadProgress: temp});
-        });          
-      
+       let temp = ((event.bytesLoaded / event.file.size) * 100);
+            temp = String(Math.round(temp)) + "%";
+            othis.setState({UploadState:  temp});
+        });
         setInterval(()=> {
             othis.socket.emit('One',{msg: "One"})
         }, 500);
@@ -50,6 +44,8 @@ module.exports =  class chat extends React.Component {
         this.siofu.addEventListener("complete", function(event){
             console.log(event.success);
             console.log(event.file.name);
+            othis.setState({UploadState: "Ready"});
+
             // Video
             if (event.file.name.match(/.mp4/)) {
                 othis.send("Video", null, event.detail.newName);
@@ -64,8 +60,7 @@ module.exports =  class chat extends React.Component {
 
         });
         this.siofu.addEventListener("error", function(event){
-            this.setState({UploadState: "Upload Fail"});
-            this.setState({uploadProgress: 100});
+            othis.setState({UploadState: "Upload fail, try it again"});
         });
     }
     
@@ -93,17 +88,15 @@ module.exports =  class chat extends React.Component {
 
 
       uploadState(){
-     if( this.state.uploadProgress !== 100 ){
-        return(
-            <button id="my_button" disabled>{this.state.uploadProgress }</button>   
-                    );
-     }else{
-         return(
-            <button id="my_button">Upload File</button>   
-            );
-     }
-
-     
+        if( this.state.UploadState === "Ready" || this.state.UploadState ===  "Upload fail, try it again"){
+            return(
+                <button id="my_button" className="sendButton">Upload</button>   
+                );
+            }else{
+                return(
+                    <button id="my_button" className="sendButton" disabled>Upload</button>   
+                );
+        }
       }
 
     
@@ -114,12 +107,12 @@ module.exports =  class chat extends React.Component {
                <a href="/">
                     <div className="sendBackButton">Back</div>
                    </a>
-                <div className="sendChatPostion">
+                <div className="sendChatPostion sendChatPanel">
 
                
 
-                 <label>Upload File: <input type="file" id="file_input" /></label>
                  {this.uploadState()}
+                 <label> <input type="file" id="file_input" className="sendFileInput" /></label>
                  <div>
                                     Upload State: {this.state.UploadState}
                                     </div>

@@ -47,7 +47,6 @@ module.exports =  class Editor extends React.Component {
         this.socket.emit('connection', {});
         ////////////////
         this.siofu = new SocketIOFileUpload(this.socket);
-        // document.getElementById("upload_btn").addEventListener("click", this.siofu.prompt, false);
         this.siofu.listenOnInput(document.getElementById("upload_input"));
       
         // Do something on upload progress:
@@ -65,8 +64,6 @@ module.exports =  class Editor extends React.Component {
             console.log("event.file", event.file);
             othis.setState({src: [...othis.state.src, event.detail.newName]});
             othis.setState({index: othis.state.src.length -1});
-            // othis.setState({userImg:  event.file.name});
-            // window.localStorage.setItem('Avatar', event.file.name); 
             othis.newUserImg(event.file.name);
             othis.setState({UploadState:  "Ready"});
 
@@ -96,22 +93,13 @@ module.exports =  class Editor extends React.Component {
         {
             temp = 0;
         }
-        // console.log(temp);
-        // this.setState({index: temp});
         this.setState({index: temp},()=> othis.newUserImg(this.state.src[this.state.index]));
     
-        // console.log(this.state.index);
-        // console.log(this.state.src[this.state.index]);
-        // console.log(this.state.userImg);
-        
     }
 
     newUserImg(srcName)
     {
-        console.log(srcName);
-        // this.setState({userImg: this.state.src[this.state.index]});
         window.localStorage.setItem('Avatar', srcName);
-        // console.log(window.localStorage.getItem('Avatar', event.file.name));
     }
 
  

@@ -12,7 +12,6 @@ module.exports =  class App extends React.Component {
        this.state = {
         userName: "No userName"
        }
-       console.log("this.state.userName",this.state.userName);
     }
     
   

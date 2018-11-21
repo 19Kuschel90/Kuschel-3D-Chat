@@ -1,5 +1,5 @@
 module.exports = {
-    mode: 'development',
+    mode: 'production',
     entry: {
         SinglePage: "./App.jsx",
         Chat3D: "./chatApp.jsx"
@@ -17,5 +17,4 @@ module.exports = {
     resolve: {
         extensions: ['*', '.js', '.jsx']
     },
-    externals: ["GUserName"]
 }

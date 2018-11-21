@@ -15,9 +15,7 @@ import skylightModel2 from './Commponents/skylightModel2';
 import PodestModel from './Commponents/PodestModel';
 import skylightModel from './Commponents/skylightModel';
 import chatModel from './Commponents/chatModel';
-//chatModel
 
-// import Viedio from './Vidio';
 const RCTDeviceEventEmitter = require('RCTDeviceEventEmitter');
 
 export default class react360 extends React.Component {
@@ -47,5 +45,3 @@ AppRegistry.registerComponent('skylightModel2', () => skylightModel2);
 AppRegistry.registerComponent('PodestModel', () => PodestModel);
 AppRegistry.registerComponent('skylightModel', () => skylightModel);
 AppRegistry.registerComponent('chatModel', () => chatModel);
-
-//BoxModel2

@@ -50,19 +50,11 @@ export default class react360 extends React.Component {
   
   // io.origins("your_domain:port www.your_domain:port your_IP:port your_domain:*")
   this.socket= io( 'http://' + this.props.host + '/Chat');
-  // this.socket.on('connect', function () {
-  //   console.log('connected!');
-  //   socket.emit('greet', { msg: '1' });
-  // });
   this.socket.emit('connection', {});
     setInterval(()=> {
       othis.socket.emit('One',{msg: "One"})
   }, 2000);
   this.socket.on('Two',(data) => {console.log(data.msg)});
-  // this.socket.on('connectionOK', (data)=>{console.log(data)});// fix handchack
-  // this.socket.on('respond', function (data) {
-  //   console.log(data);
-  // });
   this.postChat = this.postChat.bind(this);
     this.playVideo = this.playVideo.bind(this);//mouseEnterButton
 
@@ -82,15 +74,14 @@ export default class react360 extends React.Component {
     this.swapColor = this.swapColor.bind(this);
     
 this.socket.on('inputMessage', (data) => {
-  console.log(data);
   this.setState({Chat: [...this.state.Chat, data]});
   let maxChatYPos = 0;
   this.state.Chat.map((x) => {
     
     if(x.type == 'text'){
-      maxChatYPos += 52;
+      maxChatYPos += 55;
     }else if(x.type == 'Video'){
-        maxChatYPos += 230;
+        maxChatYPos += 300;
 
     }else if(x.type == 'image'){
         maxChatYPos += 300;
@@ -101,7 +92,6 @@ this.socket.on('inputMessage', (data) => {
  this.newInputIntervalStartStop();
  }
  
- console.log(data);
 });
 
 }
@@ -117,9 +107,6 @@ swapColor(){
   }
 }
 
-componentDidMount(){
-  // this.newInputIntervalStartStop();  
-}
 
 newInputIntervalStartStop(){
   if(this.state.newInputIntervalIsRunnig){
@@ -151,7 +138,6 @@ postChat()
   let key = 0;
   let index = 0;
   this.state.Chat.forEach(element => {
-    // console.log(element);
     let temp = [];
     let text = '';
     key++;
@@ -190,13 +176,8 @@ postChat()
               </Image>
             <Text  style={{
                 width: 300,
-                // height : 30,
-              // backgroundColor: 'rgba(0, 0, 255, 0.4)',
               fontSize: 35,
               fontWeight: '400',
-              
-              // borderWidth: 2,
-              // padding: 4,
               transform: [
                 { translate: [60, 50, 0] },
                   { scale: 1 },
@@ -213,7 +194,6 @@ postChat()
         if( element.type == "image" && element.image !== "")
         {
           key++;
-          // debugger;
           temp.push(
             // avartar
               <View key={key}>
@@ -230,9 +210,6 @@ postChat()
             </Image>
             <Text  style={{
                 width: 300,
-          // heightMin : 30,
-
-              // backgroundColor: 'rgba(0, 0, 255, 0.4)',
               fontSize: 30,
               fontWeight: '400',
               borderWidth: 2,
@@ -267,14 +244,12 @@ postChat()
             const number = index;
             console.log(element.VideoName);
             temp.push( 
-              // this.playVideo(element.Video.name)
              
-     // avartar              
+            // avartar              
               <View key={key} >
                 <VrButton  onClick={() => this.setVideoState( number)}
                   style={{    
-                    // width: 30,
-                    // height : 30,
+             
                     transform: [
                       { translate: [0, 0, 0] },
                         { scale: 1 },
@@ -296,13 +271,8 @@ postChat()
                 
                   <Text style={{
                 width: 300,
-                // height : 30,
-              // backgroundColor: 'rgba(0, 0, 255, 0.4)',
               fontSize: 35,
               fontWeight: '400',
-              
-              // borderWidth: 2,
-              // padding: 4,
               transform: [
                 { translate: [60, 50, 0] },
                   { scale: 1 },
@@ -320,9 +290,7 @@ postChat()
             }
             
             index++;
-            // is one Post
           output.push(<View style={{
-            // display: "inlineBlock",
             backgroundColor: 'rgba(153, 220, 220, 0.5)',
             borderColor: '#66ffff',
             borderWidth: 4,
@@ -331,9 +299,6 @@ postChat()
           });
   return (
   <View style={{
-    // display: "inlineBlock",
-    // backgroundColor: 'rgba(20, 0, 200, 0.5)',
-    // padding: 40,
     width: 500,
         height: 500,
         transform: [
@@ -347,18 +312,17 @@ postChat()
   );
 }
 
+// Video is running and stop all other Videos
 setVideoState(index){
   index = index ;
   var temp = this.state.Chat;
   
-  console.log(temp);
   if( temp[index].play){
     temp[index].play =  false;
   }else{
     temp[index].play =  true;
   }
 temp = temp.map((x,number)=> {
-  console.log(index);
   if(number != index){
     x.play = x.play = false;
   return  x;
@@ -409,32 +373,25 @@ setToEnd(){
 
 mouseEnterButtonUp(e){
 
-  console.log("endter");
-  console.log(e);
   this.setState({buttonUpNowColor: this.state.buttonUpDownHoverColor});
 }
 
 mouseExitButtonUp(){
-  console.log("onExit");
   this.setState({buttonUpNowColor: this.state.buttonUpDownORColor});
 
 }
 mouseEnterButtonDown(){
-  console.log("endter");
   this.setState({buttonDownNowColor: this.state.buttonUpDownHoverColor});
 }
 
 mouseExitButtonDown(){
-  console.log("onExit");
   this.setState({buttonDownNowColor: this.state.buttonUpDownORColor});
 
 }
 mouseEnterButtonToEnd(){
-  console.log("endter");
   this.setState({buttonSwap: this.state.buttonUpDownHoverColor});
 }
 mouseExitButtonToEnd(){
-  console.log("endter");
   this.setState({buttonSwap: this.state.buttonUpDownORColor});
 }
 
@@ -443,7 +400,6 @@ mouseExitButtonToEnd(){
   render() {
     return (
       <View style={{
-        // display: "inlineBlock",
         padding: 30
       }
         
@@ -455,12 +411,7 @@ mouseExitButtonToEnd(){
         
         borderColor: '#66ffff',
         borderWidth: 4,
-        // padding: "10px",
-        // backgroundColor: 'rgba(0, 255, 0, 0.7)',
-        
-        // borderWidth: 2,
-        // padding: 20,
-        // borderColor: '#66ffff',
+   
         
         transform: [
           { translate: [520, 530, 0] },
@@ -486,12 +437,7 @@ mouseExitButtonToEnd(){
         
         borderColor: '#66ffff',
         borderWidth: 4,
-        // padding: "10px",
-        // backgroundColor: 'rgba(0, 255, 0, 0.7)',
-        
-        // borderWidth: 2,
-        // padding: 20,
-        // borderColor: '#66ffff',
+   
         
         transform: [
           { translate: [520, 530, 0] },
@@ -517,12 +463,7 @@ mouseExitButtonToEnd(){
         
         borderColor: '#66ffff',
         borderWidth: 4,
-        // padding: "10px",
-        // backgroundColor: 'rgba(0, 255, 0, 0.7)',
-        
-        // borderWidth: 2,
-        // padding: 20,
-        // borderColor: '#66ffff',
+    
         
         transform: [
           { translate: [520, 530, 0] },
@@ -546,59 +487,3 @@ mouseExitButtonToEnd(){
     );
   }
 };
-
-// const styles = StyleSheet.create({
-//   button: {
-//     // display: "inlineBlock",
-//   // Fill the entire surface
- 
-//     backgroundColor: 'rgba(0, 200, 255, 1)',
-//     // justifyContent: 'center',
-//     borderColor: '#639dda',
-//     borderWidth: 2,
-//     // alignItems: 'center',
-//   },
-//   panel:{
-    
-  // }
-  // greetingBox: {
-  //   padding: 0,
-  //   display: "inlineBlock",
-    
-  //   // height: 200,
-  //   // backgroundColor: '#000000',
-  //   backgroundColor: 'rgba(255, 0, 0, 0.4)',
-  //   borderColor: '#639dda',
-  //   borderWidth: 2,
-  // },
-  
-  // test:{
-  //       display: "inlineBlock",
-  //       margin:20    
-    
-  // },
-
-  // myFontSize: {
-  //       display: "inlineBlock",
-  //       fontSize: 30,
-  //   backgroundColor: 'rgba(0, 0, 255, 0.4)',
-  //   // width: 800,
-  //   // height: 60,
-
-
-  // },
-  // img: {
- 
-  //   backgroundColor: 'rgba(255, 0, 255, 0.4)',
-  //   width: 30,
-  //   height : 30
-  // },
-  // video:{
-  // width: 10,
-  // height: 10
-  // }
-// });
-
-// AppRegistry.registerComponent('react360', () => react360);
-// AppRegistry.registerComponent('BoxModel', () => BoxModel);
-// AppRegistry.registerComponent('PodestModel', () => PodestModel);

@@ -69,39 +69,6 @@ app.post('/EDITOR', function(request, response) {
 });
 
 
-// app.post('/CHAT', function(req, res) {
-
-//     if (!req.files)
-//         return res.status(400).send('No files were uploaded.');
-
-//     // console.log(req.files);
-//     // console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-//     // console.log(req.files.sampleFile[0]);
-//     let index = 0;
-//     console.log(req.files.sampleFile);
-//     if (typeof req.files.sampleFile != "undefined") {
-
-//         if (Array.isArray(req.files.sampleFile)) {
-
-//             req.files.sampleFile.forEach(element => {
-//                 index++;
-//                 // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
-//                 createFile(element, index);
-
-
-
-//                 // let sampleFile = req.files.sampleFile[0];
-
-//                 // console.log(sampleFile);
-//                 // Use the mv() method to place the file somewhere on your server
-//             });
-//         } else {
-//             createFile(req.files.sampleFile, 666);
-//         }
-//     }
-//     res.sendFile(path.resolve(__dirname, root, 'index.html'));
-// });
-
 
 
 function createFile(input, index) {
@@ -142,18 +109,7 @@ var fixMoreSend2 = {
 
 };
 Chat.on('connection', (socket) => {
-    // socket.use((packet, next) => {
-    //     console.log(packet);
-    //     console.log(next);
-    //     console.log(packet.doge);
-    //     if (packet.doge === true) {
-    //         console.log("doge is true");
-    //         return next();
-    //     } else {
-    //         console.log("doge is false");
-    //         next(new Error('Not a doge error'));
-    //     }
-    // });
+
     ///////////////////////////////////////
     // Make an instance of SocketIOFileUpload and listen on this socket:
     var G_uploader = new SocketIOFileUpload();
@@ -295,39 +251,6 @@ uploadEditor.on('connection', (socket) => {
     uploader.on("saved", function(event) {
         event.file.clientDetail.newName = event.file.base + getLastName(event.file.name);
         console.log(' uploadEditor type n:', event.file);
-        // Pic
-        // if (event.file.name.match(/.svg/) ||
-        //     event.file.name.match(/.png/) ||
-        //     event.file.name.match(/.bmp/)
-        // ) {
-
-        //     Chat.emit('inputImage', { Image: event.file.name });
-        //     var datas = {
-        //         type: data.type || "text",
-        //         avatar: data.avatar || "",
-        //         user: data.user || "",
-        //         text: data.text || "",
-        //         image: data.image || "drawing.svg",
-        //         VideoName: "MoMIdent.mp4", //MoMIdent.mp4
-        //         play: false
-        //     }
-        //     sendUserMessage(datas);
-        // }
-        // // Video
-        // if (event.file.name.match(/.mp4/)) {
-
-        //     Chat.emit('inputImage', { Image: event.file.name });
-        //     var datas = {
-        //         type: data.type || "text",
-        //         avatar: data.avatar || "",
-        //         user: data.user || "",
-        //         text: data.text || "",
-        //         image: data.image || "drawing.svg",
-        //         VideoName: "MoMIdent.mp4", //MoMIdent.mp4
-        //         play: false
-        //     }
-        //     sendUserMessage(datas);
-        // }
     });
 
     // Error handler:

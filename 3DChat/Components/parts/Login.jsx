@@ -14,7 +14,6 @@ module.exports =  class Login extends React.Component {
     
     changeUserName(event) {
         this.setState({UserName: event.target.value});
-        console.log(window.userName);
     }
     
     setUserNameINLocalStorage(){

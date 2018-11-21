@@ -279,15 +279,26 @@ footer {
 }
 
 .sendButton {
-  height: 46px;
+  height: 44px;
   float: right;
   width: 95px;
+  padding: 3px;
+  font-size: 1.5rem;
+  background: rgba(153, 220, 220, 0.5);
+  border: solid 5px;
+  border-color: aqua;
+}
+
+.sendChatPanel {
+  background: rgba(153, 220, 220, 0.5);
+  border: solid 5px;
+  border-color: aqua;
 }
 
 .sendChatPostion {
   position: fixed;
-  bottom: 0px;
-  left: 0px;
+  bottom: 10px;
+  right: 0px;
   padding: 10px;
   margin: 10px;
   opacity: 0.9;
@@ -312,6 +323,9 @@ textarea {
   border-radius: 0px 0px 30px;
 }
 
+.blink,
+.sendButton:hover,
+textarea:hover,
 .sendBackButton:hover {
   border-color: aquamarine;
   background-color: #0fff37;
@@ -329,6 +343,10 @@ textarea {
 
 .load {
   font-size: 5rem;
+}
+
+.sendFileInput {
+  max-width: 50%;
 }
 
 @-webkit-keyframes w3-spin {

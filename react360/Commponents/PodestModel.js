@@ -1,5 +1,4 @@
 import React from 'react';
-// import Card from './parts/card';
 import {
   AppRegistry,
   StyleSheet,
@@ -10,7 +9,6 @@ import {
 export default class MainMy extends React.Component {
     constructor(props){
         super(props);
-        // console.log("greetingBox", this.props.styleData.greetingBox);
   this.state = {
       myModelObj: '/Podest/podest.obj',
       myModelMtl: '/Podest/podest.mtl'
@@ -22,7 +20,6 @@ export default class MainMy extends React.Component {
       return (
         <View >
            <AmbientLight intensity={1.0} color={'#ff00ff'} />
-           {/* <Entity source={{obj: asset('myModel.obj')}} /> */}
      <Model 
               source={{
                 obj:asset(this.state.myModelObj),
@@ -37,11 +34,6 @@ export default class MainMy extends React.Component {
                 ]
               }}
             />
-    
-          {/* <View style={this.props.styleData.greetingBox} > */}
-            {/* <Card styleData={this.props.styleData} CardData={this.props.CardData}  id={this.props.id}></Card> */}
-
-        {/* </View> */}
         </View>
       );
     }
