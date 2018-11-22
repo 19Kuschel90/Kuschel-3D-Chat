@@ -47,7 +47,7 @@ module.exports =  class chat extends React.Component {
             othis.setState({UploadState: "Ready"});
 
             // Video
-            if (event.file.name.match(/.mp4/)) {
+            if (event.file.name.match(/.mp4/) ) {
                 othis.send("Video", null, event.detail.newName);
             }                    // image
         else if (event.file.name.match(/.svg/) ||

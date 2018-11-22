@@ -27,10 +27,9 @@ module.exports =  class Login extends React.Component {
                  <div className="logo">
             <img src="/img/drawing.svg" class="editor editorAusWahlPic "></img>
         </div>
-        <form>
 
                     <div>
-                        <p className="LoginText">Nick Name</p>
+                        <p className="LoginText">User Name</p>
                        
                         <div>
                         <input type="text" value={this.state.UserName} className="LoginImput" onChange={this.changeUserName} placeholder="User Name" name="UserName" required/>
@@ -41,7 +40,6 @@ module.exports =  class Login extends React.Component {
 
            Go to Chat
                   </div></a>
-        </form>
 
                      </div>
         );

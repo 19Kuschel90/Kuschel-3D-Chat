@@ -34,12 +34,11 @@ export default class react360 extends React.Component {
       Chat: [{
         type: "text",//type is: text || image || Video 
         avatar: "drawing.svg",
-        user: "Hello Bot",
-        text: "Welcame ",
+        user: "Bot",
+        text: "Welcome",
         image: "",
         VideoName:  "",//MoMIdent.mp4
-          play: false
-        
+          play: false   
       }
 
     ]
@@ -121,12 +120,12 @@ newInputIntervalStartStop(){
 }
 
 upButton(e){
-  var temp = this.state.ChatPostionY + 10;
+  var temp = this.state.ChatPostionY + 55;
   this.setState({ChatPostionY: temp});
   console.log(this.state.ChatPostionY);
 }
 downButton(){
-  var temp = this.state.ChatPostionY - 10;
+  var temp = this.state.ChatPostionY - 55;
   this.setState({ChatPostionY: temp});
   console.log(this.state.ChatPostionY);
 }
@@ -339,16 +338,29 @@ console.log(temp);
 playVideo(element){
   if(element.play){
   return(
-
+<View>
+<Text  style={{
+                  width: 300,
+                fontSize: 35,
+                fontWeight: '400',
+                transform: [
+                  { translate: [65, 0, 1] },
+                    { scale: 1 },
+                    { rotateY: 0 } 
+                  ]
+              }}>Wait for load</Text>
     <Video 
               source={asset( element.VideoName)}//MoMIdent.mp4
               style={{    width: 250,
                 height : 250,
                 transform: [
-                  { translate: [55, 50, 0] },
+                  { translate: [65, 50, 0] },
                     { scale: 1 },
                     { rotateY: 0 } 
-                ]}}></Video> );
+                  ]}}></Video>
+                 
+              </View>
+              );
   }else{
    return;
   }
@@ -429,7 +441,7 @@ mouseExitButtonToEnd(){
          fontSize: 30,
 
         }}
-      >Up</Text>
+      >Move Up</Text>
     </VrButton>
           <VrButton onEnter={this.mouseEnterButtonDown}  onExit={this.mouseExitButtonDown} style={{
         width: 200,
@@ -455,7 +467,7 @@ mouseExitButtonToEnd(){
          fontSize: 30,
 
         }}
-      >down</Text>
+      >Move down</Text>
     </VrButton>
           <VrButton onEnter={this.mouseEnterButtonToEnd}  onExit={this.mouseExitButtonToEnd} style={{
         width: 200,
@@ -481,7 +493,7 @@ mouseExitButtonToEnd(){
          fontSize: 30,
 
         }}
-      >To End</Text>
+      >Move to end</Text>
     </VrButton>
       </View>
     );

@@ -15,7 +15,6 @@ html {
 }
 
 body {
-
     background: rgb(81, 206, 255);
     font-family: 'Mali', cursive;
 }
@@ -110,7 +109,7 @@ footer {
 .sendChatPanel {
     background: rgba(153, 220, 220, 0.5);
     border: solid 5px;
-    border-color: aqua
+    border-color: aqua;
 }
 
 .sendChatPostion {
@@ -140,7 +139,6 @@ textarea {
     opacity: 0.9;
     border-radius: 0px 0px 30px;
 }
-
 
 .blink,
 .sendButton:hover,
