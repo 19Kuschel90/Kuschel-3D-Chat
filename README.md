@@ -1,3 +1,7 @@
 # Kuschel-3D-Chat
 My React-360 Chat
-3DChat$ npm start
+
+install
+npm install
+cd 3DChat
+npm start
