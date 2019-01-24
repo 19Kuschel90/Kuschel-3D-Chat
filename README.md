@@ -7,4 +7,4 @@ cd 3DChat
 
 npm install
 
-npm start
+node server.js
